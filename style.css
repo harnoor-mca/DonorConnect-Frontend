@@ -43,7 +43,7 @@ body {
 .main2{
     padding: 10px;
     background-color: #003127;
-    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(/Images/background.jpg);
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(Images/background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -147,7 +147,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url(/Images/home.jpg);
+    background-image: url(Images/home.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #002c2a;

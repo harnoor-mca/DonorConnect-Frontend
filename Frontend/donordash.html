@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Donor Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+    <h2><b>DonorConnect</b></h2></header>
+<nav class="navbar">
+    
+    <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a> &nbsp;
+        <a href="donordash.html">Dashboard</a> &nbsp;
+        <a href="login.html" onclick="logout()">Logout</a>
+    </div>
+</nav>
+<section  class="dashboard text-white">
+    <div id="welcometext" class="donorhead text-white">
+    
+</div>
+    <div class="container mt-4">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <select id="cityFilter" class="form-control">
+                <option value="">Select City</option>
+                <option>Amritsar</option>
+                <option>Delhi</option>
+                <option>Chandigarh</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <select id="categoryFilter" class="form-control">
+                <option value="">Select Category</option>
+                <option>Clothes</option>
+                <option>Food</option>
+                <option>Books</option>
+                <option>Medicines</option>
+                <option>Furniture</option>
+                <option>Electronics</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <button onclick="searchNGO()" class="btn btn-warning w-100">
+                Search NGOs
+            </button>
+        </div>
+    </div>
+</div>
+<div id="ngoResults" class="container mt-4"></div>
+    <table class="table table-bordered table-striped mt-4">
+    <thead class="table-dark">
+        <tr>
+            <th>NGO</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="myDonationTable"></tbody>
+</table>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+    let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+if(!storedUser || storedUser.role !== "Donor"){
+    window.location.href = "login.html";
+    return;
+}
+
+document.getElementById("welcometext").innerText =
+    "Welcome, " + storedUser.name;
+    loadMyDonations();
+});
+function logout() {
+    localStorage.removeItem("loggedInUser");
+}
+
+function sendRequest(ngoName, ngoCity, category){
+
+    let user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    let donationsArray =
+        JSON.parse(localStorage.getItem("donations")) || [];
+
+    let newRequest = {
+        donor: user.name,
+        donoremail: user.email,
+        ngoName: ngoName,
+        ngoCity: ngoCity,
+        category: category,
+        date: new Date().toISOString().split("T")[0],
+        status: "Pending"
+    };
+
+    donationsArray.push(newRequest);
+
+    localStorage.setItem("donations",
+        JSON.stringify(donationsArray));
+
+    alert("Donation request sent successfully");
+
+    loadMyDonations();
+}
+function loadMyDonations(){
+
+    let user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if(!user) return;
+
+    let donationsArray =
+        JSON.parse(localStorage.getItem("donations")) || [];
+
+    let myDonations =
+        donationsArray.filter(d =>
+            d.donoremail === user.email
+        );
+
+    let table = document.getElementById("myDonationTable");
+    if(!table) return;
+
+    table.innerHTML = "";
+
+    if(myDonations.length === 0){
+        table.innerHTML =
+            `<tr><td colspan="4">No donations found</td></tr>`;
+        return;
+    }
+
+    myDonations.forEach((donation)=>{
+
+        let row = `
+<tr>
+    <td>${donation.ngoName}</td>
+    <td>${donation.category}</td>
+    <td>${donation.date}</td>
+    <td>${donation.status}</td>
+    <td>
+        ${donation.status === "Pending" ?
+            `<button onclick="cancelDonation('${donation.date}','${donation.ngoName}','${donation.category}')">
+                Cancel
+            </button>` : ""}
+    </td>
+</tr>
+`;
+        table.innerHTML += row;
+    });
+}
+
+function cancelDonation(date, ngoName, category){
+    let user = JSON.parse(localStorage.getItem("loggedInUser"));
+    let donationsArray =
+        JSON.parse(localStorage.getItem("donations")) || [];
+    let updated =
+        donationsArray.filter(d =>
+            !(d.donoremail === user.email &&
+              d.date === date &&
+              d.ngoName === ngoName &&
+              d.category === category)
+        );
+    localStorage.setItem("donations",
+        JSON.stringify(updated));
+    alert("Donation cancelled successfully");
+    loadMyDonations();
+}
+
+function searchNGO(){
+    let city = document.getElementById("cityFilter").value;
+    let category = document.getElementById("categoryFilter").value;
+
+    if(!city || !category){
+        alert("Please select both city and category");
+        return;
+    }
+    let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
+    let filtered = ngos.filter(n =>
+        n.city === city
+        );
+
+    let resultDiv = document.getElementById("ngoResults");
+    resultDiv.innerHTML = "";
+
+    if(filtered.length === 0){
+        resultDiv.innerHTML = "<p>No NGOs found</p>";
+        return;
+    }
+    let rowHTML=`<div class="row">`;
+    filtered.forEach(ngo => {
+        rowHTML+= `
+        <div class="col-md-4 mb-3">
+            <div class="card p-3 h-100 text-dark">
+                <h5>${ngo.name}</h5>
+                <p><b> City: </b>${ngo.city}</p>
+                <button class="btn btn-success mt-auto"
+                    onclick="sendRequest('${ngo.name}','${ngo.city}','${category}')">
+                    Send Request
+                </button>
+            </div>
+            </div>
+        `;
+    });
+    rowHTML+=`</div>`;
+    resultDiv.innerHTML=rowHTML;
+}
+</script>
+</body>
+</html>

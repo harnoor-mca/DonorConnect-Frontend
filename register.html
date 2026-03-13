@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account</title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+   <style>
+    body{
+      background: linear-gradient(rgba(0, 0, 0, 0.849),rgba(0, 0, 0, 0.842)),url(/Images/background.jpg);
+      background-repeat: no-repeat;
+      background-size:cover ;
+        
+    }
+    .w-48{
+        width: 48%;
+    }
+  </style>
+</head>
+<body class="text-white bg-dark" > 
+  <nav class="navbar bg-success justify-content-center">
+    <div class="nav-brand text-white">
+    &nbsp; <h2><b>DonorConnect</b></h2></div>
+  </nav>
+  <section id="register">
+  <div class=" container d-flex align-items-center justify-content-center vh-100">
+    <div class="row" style="max-width: 900px; width: 100%; ">
+      <div class="col-md-12 py-5 ">
+        <h3 class="mb-4 text-center text-white">Register Here</h3>
+        <form onsubmit="registerUser(event,this)">
+          <div class="mb-3">
+            <input type="text" name="name" class="form-control bg-light text-dark border-secondary" placeholder="Full Name" required />
+          </div>
+          <div class="mb-3">
+            <input type="email" name="email" class="form-control bg-light text-dark border-secondary" placeholder="Email" required />
+          </div>
+          <div class="mb-3">
+            <input type="password" name="password" class="form-control bg-light text-dark border-secondary" placeholder="Enter your password" required />
+          </div>
+          <div class="mb-3">
+            <input type="text" name="city" class="form-control bg-light text-dark border-secondary" placeholder="City" required/>
+          </div>
+          <div>
+          <select name="role" id="role" class="form-control" required>
+            <option value="">Select role</option>
+            <option value="Donor">Donor</option>
+            <option value="NGO">NGO</option>
+          </select>
+        </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="terms" required />
+            <label class="form-check-label text-white" for="terms">
+              I agree to the Terms & Conditions
+            </label> <a href="">View Terms</a>
+          </div>
+          <button type="submit" class="btn btn-success w-100 mb-3">Create Account</button>
+          
+        </form>
+       <b> <p class="mt-3 text-center text-white">
+          Already have an account? <a href="login.html" class="btn btn-outline-warning text-decoration-none ">Login</a>
+        </p> </b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function registerUser(event, form){
+  event.preventDefault();
+
+  let name = form.name.value.trim();
+  let email = form.email.value.trim();
+  let password = form.password.value.trim();
+  let city = form.city.value.trim();
+  let role = form.role.value;
+
+  if(role === ""){
+    alert("Please select a role");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
+
+  let existingUser = users.find(u => u.email === email);
+  let existingNgo = ngos.find(n => n.email === email);
+
+  if(existingUser || existingNgo){
+    alert("Email already registered!");
+    return;
+  }
+
+  let user = {
+    name: name,
+    email: email,
+    password: password,
+    role: role,
+    city: city
+  };
+
+  if(role === "NGO"){
+    user.categories = [];  
+    ngos.push(user);
+    localStorage.setItem("ngos", JSON.stringify(ngos));
+  } 
+  else {
+    users.push(user);
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+  alert("Registration successful!");
+  window.location.href = "login.html";
+}
+</script>
+</body>
+</html>

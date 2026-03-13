@@ -138,6 +138,11 @@ body {
     .main {
         padding: 15px;
     }
+    .main2{
+        background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    }
 }
 
 .login-section {

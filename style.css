@@ -67,6 +67,7 @@ body {
 }
 .card:hover{
     transform:translateY(-5px);
+    transform:scale(1.05);
     transition:0.3s;
     box-shadow: 0 8px 18px rgba(0,0,0,0.2);
 }
@@ -117,7 +118,7 @@ body {
     color: white;
     font-style: italic;
     text-align: center;
-    height: 5dvh;
+    height: 8dvh;
     display: flex;
     justify-content: center;
     align-items: center;

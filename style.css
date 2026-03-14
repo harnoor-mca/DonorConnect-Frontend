@@ -64,6 +64,11 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     border-radius: 5px;
 }
+.card:hover{
+    transform:translateY(-5px);
+    transition:0.3s;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+}
 .card h3 {
     color: #002c2a;
     text-align: center;
@@ -81,6 +86,9 @@ body {
     margin-top: 30px;
    display:flex;
    justify-content: center;
+}
+.buttons:hover{
+    tranform:scale(1.05);
 }
 .my-btn {
    background-color: #fffb00;

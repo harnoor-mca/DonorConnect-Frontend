@@ -4,9 +4,10 @@ body {
     padding:0;
     background: #f4f8f7;
 }
-.heading{
-    background-color: #acffdf;
-    color:black;
+.heading{ 
+    background: linear-gradient(rgba(255, 255, 255, 0.774),rgba(0, 104, 73, 0.438));
+    background-color: #ffffffff;
+    color:rgb(0, 83, 56);
     font-weight: bolder;
 }
 .heading h2{
@@ -25,16 +26,17 @@ body {
     justify-content: center;
     align-items: center;
     gap:5px;
-    background-color: #fffeaa;
+    background-color: #ffffff;
     padding: 5px 10px;
     text-align: center;
     min-height: auto;
     flex-wrap: nowrap;
 }
 .navbar a {
-    color: rgb(0, 34, 10);
+    color: rgb(49, 49, 49);
     text-decoration: none;
     font-weight: bold;
+    font-size: larger;
 }
 .navbar a:hover {
     color: #c50000;
@@ -47,8 +49,8 @@ body {
 }
 .main2{
     padding: 10px;
-    background-color: #003127;
-    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(Images/background.jpg);
+    background-color: #ffffff;
+    background: linear-gradient(rgba(0, 104, 73, 0.418),rgba(255, 255, 255, 0.5));
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -66,33 +68,28 @@ body {
     padding: 20px;
     margin: 10px;
     width: 250px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.199);
     border-radius: 5px;
+    border-color: #000000;
 }
 .card:hover{
-    background-color: #002c2a;
-    color: #acffdf;
+    background-color: #215c45;
+    color: #feffff;
     transform:translateY(-5px);
     transform:scale(1.05);
     transition:0.2s;
-    box-shadow: 0px 8px 18px rgba(255, 251, 0, 0.808);
+    border-color: #fbff00;
+    box-shadow: 0px 8px 18px rgba(44, 53, 50, 0.308);
 }
 .card h3 {
     color: #002c2a;
     text-align: center;
 }
 .card:hover h3 {
-    color: #d9ff00;
+    color: #fbff00;
     text-align: center;
 }
-.card a{
-    color: #1a554d;
-    text-decoration: none;
-}
-.card a:hover{
-    color: #c50000;
-    text-decoration: none;
-}
+
 .buttons {
     
     margin-top: 30px;
@@ -103,8 +100,8 @@ body {
     transform:scale(1.05);
 }
 .my-btn {
-   background-color: #fffb00;
-   color:#003127;
+   background-color: #003521;
+   color:#e5ff00;
     padding: 10px 20px;
     margin: 10px;
     text-decoration: none;
@@ -120,8 +117,8 @@ body {
     border-radius: 4px;
 }
 .my-btn:hover ,.my-btn1:hover {
-    background-color: #1a5ec400;
-    color: #fffb00;
+    background-color: #00000000;
+    color: #003326;
 }
 .footer {
     background-color: #4c5500;
@@ -144,6 +141,7 @@ body {
     }
     .navbar a {
         margin: 10px 0;
+        font-size: medium;
     }
     .cards {
         flex-direction: column;

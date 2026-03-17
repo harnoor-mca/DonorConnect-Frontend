@@ -2,24 +2,36 @@ body {
     margin: 0;
    font-family:Georgia, 'Times New Roman', Times, serif;
     padding:0;
-    background: #f4f8f7;
+    background: #004232;
 }
 .heading{ 
-    background: linear-gradient(rgba(255, 255, 255, 0.774),rgba(0, 104, 73, 0.438));
-    background-color: #ffffffff;
-    color:rgb(0, 83, 56);
+    font-size: larger;
+    background-color: rgb(0, 255, 200); 
+    color:rgb(255, 255, 255);
     font-weight: bolder;
+    background-blend-mode:hard-light;
+    background: linear-gradient( rgba(45, 0, 54, 0.5),rgb(0, 0, 0)),url(Images/background.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center;
 }
 .heading h2{
     font-weight: bolder;
 }
+
 .header {
     
-    background-color: #031614;
-    color: white;
+    background-color: #41ffef;
+    color: rgb(65, 0, 0);
     text-align: center;
     padding: 10px;
-
+    font-weight: bolder;
+   font-size: larger;
+}
+.header h1{
+    font-size:larger;
+    font-weight: bolder;
+    font-family:'Times New Roman', Times, serif;
 }
 .navbar {
     display: flex;
@@ -50,7 +62,6 @@ body {
 .main2{
     padding: 10px;
     background-color: #ffffff;
-    background: linear-gradient(rgba(0, 104, 73, 0.418),rgba(255, 255, 255, 0.5));
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -64,7 +75,7 @@ body {
 }
 .card {
     text-align: center;
-    background: rgb(239, 255, 231);
+    background: #d2fff4;
     padding: 20px;
     margin: 10px;
     width: 250px;
@@ -73,12 +84,12 @@ body {
     border-color: #000000;
 }
 .card:hover{
-    background-color: #215c45;
-    color: #feffff;
+    background-color: #009185;
+    color: #ffffff;
     transform:translateY(-5px);
     transform:scale(1.05);
     transition:0.2s;
-    border-color: #fbff00;
+    border-color: #040042;
     box-shadow: 0px 8px 18px rgba(44, 53, 50, 0.308);
 }
 .card h3 {
@@ -86,6 +97,7 @@ body {
     text-align: center;
 }
 .card:hover h3 {
+    font-weight: bolder;
     color: #fbff00;
     text-align: center;
 }
@@ -100,8 +112,8 @@ body {
     transform:scale(1.05);
 }
 .my-btn {
-   background-color: #003521;
-   color:#e5ff00;
+   background-color: #016661;
+   color:#ffffeb;
     padding: 10px 20px;
     margin: 10px;
     text-decoration: none;
@@ -116,17 +128,16 @@ body {
     text-decoration: none;
     border-radius: 4px;
 }
-.my-btn:hover ,.my-btn1:hover {
-    background-color: #00000000;
-    color: #003326;
+.my-btn:hover  {
+    background-color: #fffefe;
+    color: #00413b;
 }
+
 .footer {
-    background-color: #4c5500;
+    background-color: #003133;
     color: white;
     font-style: italic;
     text-align: center;
-    height: 8dvh;
-    display: flex;
     justify-content: center;
     align-items: center;
     
@@ -156,11 +167,7 @@ body {
     .main {
         padding: 15px;
     }
-    .main2{
-        background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    }
+    
     .reg{
        
         background-repeat: no-repeat;
@@ -178,29 +185,57 @@ body {
     align-items: center;
     min-height: 100vh;
     background-image: url(Images/background.jpg);
+    
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #002c2a;
+    background-color: #ffffff;
+}
+.navbar1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+    background-color: #e1fffb;
+    padding: 5px 10px;
+    text-align: center;
+    min-height: auto;
+    flex-wrap: nowrap;
+}
+.navbar1 a {
+    color: rgb(49, 49, 49);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: larger;
+}
+.navbar1 a:hover {
+    color: #c50000;
+    text-decoration: underline;
+}
+.navbar1 h2{
+    font-family: 'Times New Roman', Times, serif;
+    text-decoration: underline;
 }
 .login-box {
-    background: rgb(0, 46, 40);
-    color:white;
+    background: rgb(212, 255, 249);
+    color:rgb(0, 0, 0);
     padding: 30px;
     width: 40dvw;
     border-radius: 6px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     text-align: center;
-    background-color:rgb(0, 66, 61);
+    background-color:#d1ffff;
 }
 .login-box h2 {
     margin-bottom: 20px;
-    color: #ffffff;
+    color: #020202;
+    font-size:xx-large;
 }
 .login-box a{
-    color:yellow;
+    color:rgb(0, 70, 66);
 }
 .login-box a:hover{
-    color:#00f7ff;
+    color:#6e3b00;
 }
 .login-box input {
     width: 100%;

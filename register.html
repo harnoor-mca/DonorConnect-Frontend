@@ -7,26 +7,57 @@
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
    <style>
     body{
-      background: linear-gradient(rgba(0, 0, 0, 0.849),rgba(0, 0, 0, 0.842)),url(Images/background.jpg);
-      background-repeat: no-repeat;
+       background: linear-gradient( rgba(0, 50, 54, 0.5),rgb(0, 0, 0)),url(Images/background.jpg);
+   background-repeat: no-repeat;
       background-size:cover ;
-        
+        font-family: 'Times New Roman', Times, serif;
+        font-size: large;
     }
     .w-48{
         width: 48%;
     }
+    .navbar{
+      background-color:  #007070;
+      color: rgb(255, 255, 255);
+      text-decoration: underline;
+    }
+    .card1 {
+    
+    background: rgb(212, 255, 249);
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    box-shadow: 0 0 15px rgba(251, 255, 0, 0.904);
+    border-radius: 5px;
+    border-color: #c9cc00;
+}
+.btn:hover{
+ background-color: #006b79;
+ color:#ffffff;
+ font-weight: bolder;
+}
+.btn{
+ background-color: #000000fd;
+ color:#00eeff;
+}
+h3{
+  font-size:xx-large;
+  font-weight: bolder;
+  font-family: 'Times New Roman', Times, serif;
+}
   </style>
 </head>
-<body class="reg text-white bg-dark" > 
-  <nav class="navbar bg-success justify-content-center">
-    <div class="nav-brand text-white">
-    &nbsp; <h2><b>DonorConnect</b></h2></div>
+<body class="reg text-white" > 
+  <nav class="navbar  justify-content-center">
+    <div class="nav-brand ">
+     <h2><b>DonorConnect</b></h2></div>
   </nav>
   <section id="register">
   <div class=" container d-flex align-items-center justify-content-center vh-100">
-    <div class="row" style="max-width: 900px; width: 100%; ">
-      <div class="col-md-12 py-5 ">
-        <h3 class="mb-4 text-center text-white">Register Here</h3>
+    
+    <div class="row card1" style="max-width: 900px; width: 100%; ">
+      <div class="col-md-12 py-2 ">
+        <b><h3 class="mb-4 text-center text-dark">Register Here</h3></b>
         <form onsubmit="registerUser(event,this)">
           <div class="mb-3">
             <input type="text" name="name" class="form-control bg-light text-dark border-secondary" placeholder="Full Name" required />
@@ -41,24 +72,24 @@
             <input type="text" name="city" class="form-control bg-light text-dark border-secondary" placeholder="City" required/>
           </div>
           <div>
-          <select name="role" id="role" class="form-control" required>
+          <select name="role" id="role" class="form-control border-secondary" required>
             <option value="">Select role</option>
             <option value="Donor">Donor</option>
             <option value="NGO">NGO</option>
           </select>
         </div>
-          <div class="form-check mb-3">
+          <div class="form-check mb-3 justify-content-start align-items-start">
             <input class="form-check-input" type="checkbox" id="terms" required />
-            <label class="form-check-label text-white" for="terms">
+            <label class="form-check-label text-dark" for="terms">
               I agree to the Terms & Conditions
-            </label> <a href="">View Terms</a>
+            </label> 
           </div>
-          <button type="submit" class="btn btn-success w-100 mb-3">Create Account</button>
+          <button type="submit" class="btn btn-outline-light w-100 mb-3"><b>Create Account</b></button>
           
         </form>
-       <b> <p class="mt-3 text-center text-white">
-          Already have an account? <a href="login.html" class="btn btn-outline-warning text-decoration-none ">Login</a>
-        </p> </b>
+       <p class="mt-3 text-center text-dark"><b>
+          Already have an account? </b> <a href="login.html" class="btn btn-outline-light text-decoration-none ">Login</a>
+        </p> 
       </div>
     </div>
   </div>

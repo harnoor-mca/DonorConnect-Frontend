@@ -197,8 +197,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url(Images/background.jpg);
-    
+    background: linear-gradient( rgba(0, 50, 54, 0.5),rgb(0, 0, 0)),url(Images/background.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -233,6 +232,7 @@ body {
 .login-box {
     background: rgb(212, 255, 249);
     color:rgb(0, 0, 0);
+    font-weight: bolder;
     padding: 30px;
     width: 40dvw;
     border-radius: 6px;
@@ -244,14 +244,14 @@ body {
     margin-bottom: 20px;
     color: #020202;
     font-size:xx-large;
+    font-weight: bolder;
 }
 .login-box a{
     color:rgb(0, 70, 66);
 }
-.login-box a:hover{
-    color:#6e3b0063;
-}
+
 .login-box input {
+    font-weight: bold;
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -277,47 +277,45 @@ body {
     padding: 30px;
     text-align: center;
     background:rgb(212, 255, 249);
+    font-weight: bolder;
 }
-
-.dash-cards {
+.dashboard select{
+    font-weight: bold;
+    color: #616161;
+}
+.dash-card {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    flex-wrap: wrap;
     margin-top: 30px;
+    font-weight: bold;
 }
 .donorhead{
     font-size: x-large;
+    font-weight: bolder;
 }
 .dash-card {
-    background: white;
+    background: rgb(211, 255, 251);
     width: 230px;
     margin: 15px;
     padding: 20px;
     border-radius: 6px;
     border-color: #020202;
-    box-shadow: 10px 10px 10px rgb(0, 0, 0);
-}
-.dash-card a:hover{
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
     font-weight: bolder;
-    outline-style:groove;
-    outline-color: #ffffff;
-    color: #00f7ff;
+    text-align: left;
 }
-.dash-card a{
-    font-weight: bolder;
-    outline-style:groove;
-    outline-color: #003127;
-    background-color: #003127;
-    color: #e1f3ff;
-}
-.dash-card h3 {
-    color: #00ffea;
+
+
+.dash-card h5 {
+    color: #001413;
     margin-bottom: 10px;
     font-weight: bolder;
 }
 
 @media (max-width: 768px) {
     .dash-card {
-        width: 90%;
+        width: 40%;
+        text-align: left;
     }
 }

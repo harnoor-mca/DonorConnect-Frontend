@@ -24,8 +24,8 @@
     
 </div>
     <div class="container mt-4">
-    <div class="row g-3">
-        <div class="col-md-4">
+    <div class="row g-2">
+        <div class="col-md-6">
             <select id="cityFilter" class="form-control">
                 <option value="">Select City</option>
                 <option>Amritsar</option>
@@ -34,7 +34,7 @@
             </select>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-6">
             <select id="categoryFilter" class="form-control">
                 <option value="">Select Category</option>
                 <option>Clothes</option>
@@ -46,7 +46,7 @@
             </select>
         </div>
 
-        <div class="col-md-4">
+        <div class="">
             <button onclick="searchNGO()" class="my-btndo">
                 Search NGOs
             </button>
@@ -184,7 +184,8 @@ function searchNGO(){
     }
     let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
     let filtered = ngos.filter(n =>
-        n.city === city
+        n.city === city,
+        
         );
 
     let resultDiv = document.getElementById("ngoResults");
@@ -197,11 +198,12 @@ function searchNGO(){
     let rowHTML=`<div class="row">`;
     filtered.forEach(ngo => {
         rowHTML+= `
-        <div class="col-md-4 mb-3">
-            <div class="card p-3 h-100">
-                <h5>${ngo.name}</h5>
-                <p><b> City: </b>${ngo.city}</p>
-                <button class="my-btn  mt-auto"
+        <div class="col-md-4 mb-2">
+            <div class="dash-card h-100 ">
+                <h5><b>${ngo.name}</b></h5>
+                <h6><b> City: </b>${ngo.city} </h6>
+                     <h6><b>Category: </b> ${ngo.category}</h6>
+                <button class="my-btndo  mt-auto"
                     onclick="sendRequest('${ngo.name}','${ngo.city}','${category}')">
                     Send Request
                 </button>

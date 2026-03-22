@@ -145,33 +145,33 @@ function registerUser(event, form){
   }
 
  
-if(role === "ngo"){
+// if(role === "ngo"){
 
-  const data = {
-    name: name,
-    email: email,
-    password: password,
-    phone: tel,
-    city: city,
-    address: form.address?.value || "",
-    category: form.category?.value || ""
-  };
+//   const data = {
+//     name: name,
+//     email: email,
+//     password: password,
+//     phone: tel,
+//     city: city,
+//     address: form.address?.value || "",
+//     category: form.category?.value || ""
+//   };
 
-  fetch("http://localhost:5000/api/ngos/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(result => {
-    alert("NGO Registered Successfully");
-    console.log(result);
-  })
-  .catch(err => console.log(err));
+//   fetch("http://localhost:5000/api/ngos/register", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify(data)
+//   })
+//   .then(res => res.json())
+//   .then(result => {
+//     alert("NGO Registered Successfully");
+//     console.log(result);
+//   })
+//   .catch(err => console.log(err));
 
-}
+// }
 
   let user = {
     name: name,
@@ -193,7 +193,7 @@ if(role === "ngo"){
   }
   alert("Registration successful!");
   window.location.href = "login.html";
-}
+ }
 
 const roleSelect= document.getElementById("role");
 const ngoFields=document.getElementById("ngoFields");

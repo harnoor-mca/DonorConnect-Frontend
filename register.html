@@ -105,9 +105,9 @@ input{
         </div>
         <div id="ngoFields" class="mb-3">
           <label>Address</label>
-          <input type="text" id="addresses" placeholder="Address of NGO" class="form-control border-secondary bg-light text-dark mb-3 ">
+          <input type="text" name="address" id="addresses" placeholder="Address of NGO" class="form-control border-secondary bg-light text-dark mb-3 ">
           <label>Categories</label>
-          <input type="text" id="categories" placeholder="Accepted Categories" class="form-control border-secondary bg-light text-dark ">
+          <input type="text" name="category" id="categories" placeholder="Accepted Categories" class="form-control border-secondary bg-light text-dark ">
         </div>
         
           <div class="form-check mb-4 justify-content-start align-items-start">
@@ -144,16 +144,34 @@ function registerUser(event, form){
     return;
   }
 
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-  let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
+ 
+if(role === "ngo"){
 
-  let existingUser = users.find(u => u.email === email);
-  let existingNgo = ngos.find(n => n.email === email);
+  const data = {
+    name: name,
+    email: email,
+    password: password,
+    phone: tel,
+    city: city,
+    address: form.address?.value || "",
+    category: form.category?.value || ""
+  };
 
-  if(existingUser || existingNgo){
-    alert("Email already registered!");
-    return;
-  }
+  fetch("http://localhost:5000/api/ngos/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(result => {
+    alert("NGO Registered Successfully");
+    console.log(result);
+  })
+  .catch(err => console.log(err));
+
+}
 
   let user = {
     name: name,

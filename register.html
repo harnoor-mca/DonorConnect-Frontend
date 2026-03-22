@@ -172,6 +172,14 @@ function registerUser(event, form){
 //   .catch(err => console.log(err));
 
 // }
+let users=JSON.parse(localStorage.getItem("users")) || [];
+let ngos=JSON.parse(localStorage.getItem("ngos")) || [];
+let existingUser=users.find(u=>u.email=== email);
+let existingNgo=ngos.find(n=>n.email===email);
+if(existingUser || existingNgo){
+  alert("Email already registered");
+  return;
+}
 
   let user = {
     name: name,

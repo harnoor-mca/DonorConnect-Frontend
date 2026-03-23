@@ -52,7 +52,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
-    if (!storedUser || storedUser.role !== "NGO") {
+    if (!storedUser || storedUser.role !== "ngo") {
         alert("Unauthorized Access!");
         window.location.href = "login.html";
         return;

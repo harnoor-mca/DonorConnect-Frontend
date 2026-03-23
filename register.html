@@ -133,10 +133,10 @@ function registerUser(event, form){
   event.preventDefault();
 
   let name = form.name.value.trim();
-  let email = form.email.value.trim();
+  let email = form.email.value.trim().toLowerCase();
   let password = form.password.value.trim();
   let city = form.city.value.trim();
-  let role = form.role.value;
+  let role = form.role.value.trim();
   let tel=form.tel.value.trim();
 
   if(role === ""){
@@ -145,33 +145,7 @@ function registerUser(event, form){
   }
 
  
-// if(role === "ngo"){
 
-//   const data = {
-//     name: name,
-//     email: email,
-//     password: password,
-//     phone: tel,
-//     city: city,
-//     address: form.address?.value || "",
-//     category: form.category?.value || ""
-//   };
-
-//   fetch("http://localhost:5000/api/ngos/register", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify(data)
-//   })
-//   .then(res => res.json())
-//   .then(result => {
-//     alert("NGO Registered Successfully");
-//     console.log(result);
-//   })
-//   .catch(err => console.log(err));
-
-// }
 let users=JSON.parse(localStorage.getItem("users")) || [];
 let ngos=JSON.parse(localStorage.getItem("ngos")) || [];
 let existingUser=users.find(u=>u.email=== email);
@@ -190,7 +164,7 @@ if(existingUser || existingNgo){
     tel: tel
   };
 
-  if(role === "NGO"){
+  if(role === "ngo"){
     user.categories = [];  
     ngos.push(user);
     localStorage.setItem("ngos", JSON.stringify(ngos));
@@ -199,7 +173,6 @@ if(existingUser || existingNgo){
     users.push(user);
     localStorage.setItem("users", JSON.stringify(users));
   }
-  alert("Registration successful!");
   window.location.href = "login.html";
  }
 

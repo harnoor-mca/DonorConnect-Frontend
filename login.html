@@ -46,20 +46,23 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
 
 let founduser = users.find(u =>
-    u.email === email && u.password === password
+    u.email.trim().toLowerCase() === email.toLowerCase() && u.password === password
 );
 let foundngo = ngos.find(n =>
-    n.email === email && n.password === password
+    n.email.trim().toLowerCase() === email.toLowerCase() && n.password === password
 );
 
-if(founduser){
-    localStorage.setItem("loggedInUser", JSON.stringify(founduser));
-    window.location.href = "donordash.html";
-}
-else if(foundngo){
+if(foundngo){
+    foundngo.role="ngo";
     localStorage.setItem("loggedInUser", JSON.stringify(foundngo));
     window.location.href = "ngodash.html";
 }
+else if(founduser){
+    founduser.role="Donor";
+    localStorage.setItem("loggedInUser", JSON.stringify(founduser));
+    window.location.href = "donordash.html";
+}
+
 else{
     alert("Invalid credentials!");
 }

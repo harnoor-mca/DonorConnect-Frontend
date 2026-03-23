@@ -72,11 +72,11 @@
 
 <script>
 document.addEventListener("DOMContentLoaded",function(){
-    let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
+let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
 if(!storedUser || storedUser.role !== "Donor"){
     window.location.href = "login.html";
-    return;
+    
 }
 
 document.getElementById("welcometext").innerText =

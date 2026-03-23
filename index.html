@@ -20,8 +20,9 @@
         <a href="index.html">Home</a> &nbsp; 
         <a href="login.html">Login</a> &nbsp;
         <a href="register.html">Register</a> &nbsp;
-        <a href="#">About</a> &nbsp;
-        <a href="#">Contact</a> &nbsp;
+         <a href="#">Contact</a> &nbsp;
+         <button id="aboutBtn" class="my-btnab justify-content-end "><i class="bi bi-info-circle"></i></i></button>
+
 
     </nav>
     <section>
@@ -86,11 +87,49 @@
         </div>
     <div>
     </section>
+
+
+<div id="aboutModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>About Us</h2>
+    <p>
+      <b>DonorConnect</b> is a platform connecting donors with registered NGOs to make in-kind donations simple and transparent.
+      Our mission is to ensure every contribution reaches the right place at the right time.
+    </p>
+    <ul>
+      <li> Search NGOs by city and category and send structured requests.</li>
+      <li> Track the status of donations in real-time.</li>
+      <li> Tailored dashboards for donors, NGOs, and admins.</li>
+    </ul>
+    <p>Our vision is to create a <b>community of giving</b> where helping others is simple and accountable.</p>
+  </div>
+</div>
+
+
     <footer class="footer">
     <br>
         <p>  DonorConnect | Location-based In-Kind Donation Coordination System </p>
 <br>
 </footer> </div>
+<script>
+const modal = document.getElementById("aboutModal");
+const btn = document.getElementById("aboutBtn");
+const span = document.querySelector(".close");
 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
 </body>
 </html>

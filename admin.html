@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel | DonorConnect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #009488; 
+            font-family: 'Segoe UI', sans-serif; }
+        .table-container { padding: 30px; }
+        h2 { margin-bottom: 20px;
+        color: aliceblue; }
+        .btn-sm { margin: 2px; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark px-4">
+    <span class="navbar-brand">DonorConnect - Admin Panel</span>
+    <button class="btn btn-outline-warning" onclick="logout()">Logout</button>
+</nav>
+
+<div class="table-container">
+    <h2>Donors</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>City</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="donorTable"></tbody>
+    </table>
+
+    <h2>NGOs</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>City</th>
+                <th>Phone</th>
+                <th>Categories</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="ngoTable"></tbody>
+    </table>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if (!storedUser || storedUser.role !== "Admin") {
+        alert("Unauthorized Access!");
+        window.location.href = "login.html";
+        return;
+    }
+
+    loadUsers();
+});
+
+function loadUsers() {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
+
+    let donorTable = document.getElementById("donorTable");
+    donorTable.innerHTML = "";
+    users.forEach((u, index) => {
+        donorTable.innerHTML += `
+            <tr>
+                <td>${u.name}</td>
+                <td>${u.email}</td>
+                <td>${u.city}</td>
+                <td>${u.tel}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="deleteDonor(${index})">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+
+    let ngoTable = document.getElementById("ngoTable");
+    ngoTable.innerHTML = "";
+    ngos.forEach((n, index) => {
+        ngoTable.innerHTML += `
+            <tr>
+                <td>${n.name}</td>
+                <td>${n.email}</td>
+                <td>${n.city}</td>
+                <td>${n.tel}</td>
+                <td>${n.category || ''}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="deleteNgo(${index})">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+function deleteDonor(index) {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users.splice(index, 1);
+    localStorage.setItem("users", JSON.stringify(users));
+    loadUsers();
+}
+
+function deleteNgo(index) {
+    let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
+    ngos.splice(index, 1);
+    localStorage.setItem("ngos", JSON.stringify(ngos));
+    loadUsers();
+}
+
+function logout() {
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

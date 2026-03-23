@@ -178,7 +178,7 @@ let existingUser=users.find(u=>u.email=== email);
 let existingNgo=ngos.find(n=>n.email===email);
 if(existingUser || existingNgo){
   alert("Email already registered");
-  return;
+  window.location.href="login.html";
 }
 
   let user = {

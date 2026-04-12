@@ -131,6 +131,7 @@ input{
 <script>
 function registerUser(event, form){
   event.preventDefault();
+  console.log("Register func called");
 
   let name = form.name.value.trim();
   let email = form.email.value.trim().toLowerCase();
@@ -163,17 +164,36 @@ if(existingUser || existingNgo){
     city: city,
     tel: tel
   };
-
+fetch("http://localhost:5000/api/register",{
+  method:"POST",headers:{"Content-type":"application/json"},
+  body:JSON.stringify({
+    name: name,
+    email: email,
+    password: password,
+    role: role,
+    city: city,
+    phone: tel
+  })
+})
+.then(res=>res.json())
+.then(data=>{
+  alert(data.message || data);
+  window.location.href="login.html";
+})
+.catch(err=>{
+  console.log(err);
+  alert("Error registering user");
+});
   if(role === "ngo"){
     user.categories = [];  
-    ngos.push(user);
-    localStorage.setItem("ngos", JSON.stringify(ngos));
+    // ngos.push(user);
+    // localStorage.setItem("ngos", JSON.stringify(ngos));
   } 
   else {
-    users.push(user);
-    localStorage.setItem("users", JSON.stringify(users));
+    // users.push(user);
+    // localStorage.setItem("users", JSON.stringify(users));
   }
-  window.location.href = "login.html";
+  // window.location.href = "login.html";
  }
 
 const roleSelect= document.getElementById("role");

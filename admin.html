@@ -57,7 +57,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
-    if (!storedUser || storedUser.role !== "Admin") {
+    if (!storedUser || storedUser.role !== "admin") {
         alert("Unauthorized Access!");
         window.location.href = "login.html";
         return;

@@ -74,7 +74,7 @@
 document.addEventListener("DOMContentLoaded",function(){
 
 let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
-if(!storedUser || storedUser.role !== "Donor"){
+if(!storedUser || storedUser.role !== "donor"){
     window.location.href = "login.html";
     
 }

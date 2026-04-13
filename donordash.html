@@ -37,6 +37,7 @@
         <div class="col-md-6">
             <select id="categoryFilter" class="form-control">
                 <option value="">Select Category</option>
+                <option value="All" selected>All NGOs</option>
                 <option>Clothes</option>
                 <option>Food</option>
                 <option>Books</option>
@@ -174,6 +175,53 @@ function cancelDonation(date, ngoName, category){
     loadMyDonations();
 }
 
+// function searchNGO(){
+//     let city = document.getElementById("cityFilter").value;
+//     let category = document.getElementById("categoryFilter").value;
+
+//     if(!city || !category){
+//         alert("Please select both city and category");
+//         return;
+//     }
+//     // let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
+//     // let ngos=[];
+//     fetch("http://localhost:5000/api/ngos")
+//     .then(res=>res.json())
+//     .then (data=>{ngos=data;
+//         displayNGOs(ngos);
+//     })
+//     .catch(err=>console.log(err));
+//     let filtered = ngos.filter(n =>
+//         n.city === city,
+        
+//         );
+
+//     let resultDiv = document.getElementById("ngoResults");
+//     resultDiv.innerHTML = "";
+
+//     if(filtered.length === 0){
+//         resultDiv.innerHTML = "<p>No NGOs found</p>";
+//         return;
+//     }
+//     let rowHTML=`<div class="row">`;
+//     filtered.forEach(ngo => {
+//         rowHTML+= `
+//         <div class="col-md-4 mb-2">
+//             <div class="dash-card h-100 ">
+//                 <h5><b>${ngo.name}</b></h5>
+//                 <h6><b> City: </b>${ngo.city} </h6>
+//                      <h6><b>Category: </b> ${ngo.category}</h6>
+//                 <button class="my-btndo  mt-auto"
+//                     onclick="sendRequest('${ngo.name}','${ngo.city}','${category}')">
+//                     Send Request
+//                 </button>
+//             </div>
+//             </div>
+//         `;
+//     });
+//     rowHTML+=`</div>`;
+//     resultDiv.innerHTML=rowHTML;
+// }
 function searchNGO(){
     let city = document.getElementById("cityFilter").value;
     let category = document.getElementById("categoryFilter").value;
@@ -182,37 +230,56 @@ function searchNGO(){
         alert("Please select both city and category");
         return;
     }
-    let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
-    let filtered = ngos.filter(n =>
-        n.city === city,
-        
-        );
 
-    let resultDiv = document.getElementById("ngoResults");
-    resultDiv.innerHTML = "";
+    fetch("http://localhost:5000/api/ngos")
+    .then(res => res.json())
+    .then(ngos => {
+        console.log("NGO data:",ngos);
+        // let filtered = ngos.filter(n =>
+        //     n.city.toLowerCase() === city.toLowerCase() && n.category.toLowerCase() === category.toLowerCase()
+        // );
+        let filtered = ngos.filter(n => {
+    const ngoCity = (n.city || "").trim().toLowerCase();
+    const ngoCategory = (n.category || "").trim().toLowerCase();
 
-    if(filtered.length === 0){
-        resultDiv.innerHTML = "<p>No NGOs found</p>";
-        return;
-    }
-    let rowHTML=`<div class="row">`;
-    filtered.forEach(ngo => {
-        rowHTML+= `
-        <div class="col-md-4 mb-2">
-            <div class="dash-card h-100 ">
-                <h5><b>${ngo.name}</b></h5>
-                <h6><b> City: </b>${ngo.city} </h6>
-                     <h6><b>Category: </b> ${ngo.category}</h6>
-                <button class="my-btndo  mt-auto"
-                    onclick="sendRequest('${ngo.name}','${ngo.city}','${category}')">
-                    Send Request
-                </button>
+    const selectedCity = city.trim().toLowerCase();
+    const selectedCategory = category.trim().toLowerCase();
+return (ngoCity===selectedCity&& (selectedCategory==="all"||ngoCategory===selectedCategory));
+    console.log("CHECK:", ngoCity, selectedCity, ngoCategory, selectedCategory);
+
+    
+});
+
+        let resultDiv = document.getElementById("ngoResults");
+        resultDiv.innerHTML = "";
+
+        if(filtered.length === 0){
+            resultDiv.innerHTML = "<p>No NGOs found</p>";
+            return;
+        }
+
+        let rowHTML = `<div class="row">`;
+
+        filtered.forEach(ngo => {
+            rowHTML += `
+            <div class="col-md-4 mb-2">
+                <div class="dash-card h-100">
+                    <h5><b>${ngo.organisation_name}</b></h5>
+                    <h6><b>City:</b> ${ngo.city}</h6>
+                    <h6><b>Category:</b> ${ngo.category}</h6>
+                    <button class="my-btndo mt-auto"
+                        onclick="sendRequest('${ngo.organisation_name}','${ngo.city}','${category}')">
+                        Send Request
+                    </button>
+                </div>
             </div>
-            </div>
-        `;
-    });
-    rowHTML+=`</div>`;
-    resultDiv.innerHTML=rowHTML;
+            `;
+        });
+
+        rowHTML += `</div>`;
+        resultDiv.innerHTML = rowHTML;
+    })
+    .catch(err => console.log(err));
 }
 </script>
 </body>

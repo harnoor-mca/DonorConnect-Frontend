@@ -92,52 +92,26 @@ function logout() {
     localStorage.removeItem("loggedInUser");
 }
 
-// function sendRequest(ngoName, ngoCity, category){
-
-//     let user = JSON.parse(localStorage.getItem("loggedInUser"));
-
-//     let donationsArray =
-//         JSON.parse(localStorage.getItem("donations")) || [];
-
-//     let newRequest = {
-//         donor: user.name,
-//         donoremail: user.email,
-//         ngoName: ngoName,
-//         ngoCity: ngoCity,
-//         category: category,
-//         date: new Date().toISOString().split("T")[0],
-//         status: "Pending"
-//     };
-
-//     donationsArray.push(newRequest);
-
-//     localStorage.setItem("donations",
-//         JSON.stringify(donationsArray));
-
-//     alert("Donation request sent successfully");
-
-//     loadMyDonations();
-// }
 
 function sendRequest(ngoId,category){
+    console.log("Category sent:",category);
     let user = JSON.parse(localStorage.getItem("loggedInUser"));
-
-    let requestData = {
-        donor_id: user.user.donor_id,
-        ngo_id: ngoId,
-        donation_type: category,
-        quantity: 1,
-        message: "Donation request",
-        status: "Pending",
-        request_date: new Date().toISOString().split("T")[0]
-    };
 
     fetch("http://localhost:5000/api/donate", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify({
+            donor_id: user.user.donor_id,
+        ngo_id: ngoId,
+        donation_type: category,
+        quantity: 1,
+        message: "Donation request",
+        status: "Pending",
+        request_date: new Date().toISOString().split("T")[0]
+    
+        })
     })
     .then(res => res.json())
     .then(data => {
@@ -182,64 +156,8 @@ table.innerHTML+=row;
 .catch(err=>console.log(err));
 }
 
-
-
-
-
-//     let donationsArray =
-//         JSON.parse(localStorage.getItem("donations")) || [];
-
-//     let myDonations =
-//         donationsArray.filter(d =>
-//             d.donoremail === user.email
-//         );
-
-//     let table = document.getElementById("myDonationTable");
-//     if(!table) return;
-
-//     table.innerHTML = "";
-
-//     if(myDonations.length === 0){
-//         table.innerHTML =
-//             `<tr><td colspan="4">No donations found</td></tr>`;
-//         return;
-//     }
-
-//     myDonations.forEach((donation)=>{
-
-//         let row = `
-// <tr>
-//     <td>${donation.ngoName}</td>
-//     <td>${donation.category}</td>
-//     <td>${donation.date}</td>
-//     <td>${donation.status}</td>
-//     <td>
-//         ${donation.status === "Pending" ?
-//             `<button onclick="cancelDonation('${donation.date}','${donation.ngoName}','${donation.category}')">
-//                 Cancel
-//             </button>` : ""}
-//     </td>
-// </tr>
-// `;
-//         table.innerHTML += row;
-//     });
-// }
-
 function cancelDonation(request_id){
-    // let user = JSON.parse(localStorage.getItem("loggedInUser"));
-    // let donationsArray =
-    //     JSON.parse(localStorage.getItem("donations")) || [];
-    // let updated =
-    //     donationsArray.filter(d =>
-    //         !(d.donoremail === user.email &&
-    //           d.date === date &&
-    //           d.ngoName === ngoName &&
-    //           d.category === category)
-    //     );
-    // localStorage.setItem("donations",
-    //     JSON.stringify(updated));
-    // alert("Donation cancelled successfully");
-    // loadMyDonations();
+    
     fetch(`http://localhost:5000/api/donation/${request_id}`,{
         method:"DELETE"
     })
@@ -251,54 +169,8 @@ function cancelDonation(request_id){
     .catch(err=>console.log(err));
 }
 
-// function searchNGO(){
-//     let city = document.getElementById("cityFilter").value;
-//     let category = document.getElementById("categoryFilter").value;
-
-//     if(!city || !category){
-//         alert("Please select both city and category");
-//         return;
-//     }
-//     // let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
-//     // let ngos=[];
-//     fetch("http://localhost:5000/api/ngos")
-//     .then(res=>res.json())
-//     .then (data=>{ngos=data;
-//         displayNGOs(ngos);
-//     })
-//     .catch(err=>console.log(err));
-//     let filtered = ngos.filter(n =>
-//         n.city === city,
-        
-//         );
-
-//     let resultDiv = document.getElementById("ngoResults");
-//     resultDiv.innerHTML = "";
-
-//     if(filtered.length === 0){
-//         resultDiv.innerHTML = "<p>No NGOs found</p>";
-//         return;
-//     }
-//     let rowHTML=`<div class="row">`;
-//     filtered.forEach(ngo => {
-//         rowHTML+= `
-//         <div class="col-md-4 mb-2">
-//             <div class="dash-card h-100 ">
-//                 <h5><b>${ngo.name}</b></h5>
-//                 <h6><b> City: </b>${ngo.city} </h6>
-//                      <h6><b>Category: </b> ${ngo.category}</h6>
-//                 <button class="my-btndo  mt-auto"
-//                     onclick="sendRequest('${ngo.name}','${ngo.city}','${category}')">
-//                     Send Request
-//                 </button>
-//             </div>
-//             </div>
-//         `;
-//     });
-//     rowHTML+=`</div>`;
-//     resultDiv.innerHTML=rowHTML;
-// }
 function searchNGO(){
+
     let city = document.getElementById("cityFilter").value;
     let category = document.getElementById("categoryFilter").value;
 
@@ -311,9 +183,7 @@ function searchNGO(){
     .then(res => res.json())
     .then(ngos => {
         console.log("NGO data:",ngos);
-        // let filtered = ngos.filter(n =>
-        //     n.city.toLowerCase() === city.toLowerCase() && n.category.toLowerCase() === category.toLowerCase()
-        // );
+        
         let filtered = ngos.filter(n => {
     const ngoCity = (n.city || "").trim().toLowerCase();
     const ngoCategory = (n.category || "").trim().toLowerCase();

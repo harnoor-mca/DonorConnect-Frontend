@@ -107,7 +107,17 @@ input{
           <label>Address</label>
           <input type="text" name="address" id="addresses" placeholder="Address of NGO" class="form-control border-secondary bg-light text-dark mb-3 ">
           <label>Categories</label>
-          <input type="text" name="category" id="categories" placeholder="Accepted Categories" class="form-control border-secondary bg-light text-dark ">
+          <!-- <input type="text" name="category" id="categories" placeholder="Accepted Categories" class="form-control border-secondary bg-light text-dark "> -->
+        <select name="category" class="form-control" required>
+    <option value="">Select Category</option>
+    <option value="General">General</option>
+    <option value="Clothes">Clothes</option>
+    <option value="Food">Food</option>
+    <option value="Books">Books</option>
+    <option value="Medicines">Medicines</option>
+    <option value="Furniture">Furniture</option>
+    <option value="Electronics">Electronics</option>
+</select>
         </div>
         
           <div class="form-check mb-4 justify-content-start align-items-start">
@@ -187,14 +197,12 @@ fetch("http://localhost:5000/api/register",{
 });
   if(role === "ngo"){
     user.categories = [];  
-    // ngos.push(user);
-    // localStorage.setItem("ngos", JSON.stringify(ngos));
+   
   } 
   else {
-    // users.push(user);
-    // localStorage.setItem("users", JSON.stringify(users));
+    
   }
-  // window.location.href = "login.html";
+  
  }
 
 const roleSelect= document.getElementById("role");

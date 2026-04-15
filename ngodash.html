@@ -62,50 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "Welcome, " + storedUser.user.organisation_name;
     renderTable();
 });
-// function renderTable() {
-//     let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
-//     // let donations = JSON.parse(localStorage.getItem("donations")) || [];
-//     let table = document.getElementById("donationTable");
-//     table.innerHTML = "";
-
-//     // let myDonations = donations.filter(d =>
-//     //     d.ngoName === storedUser.name
-//     // );
-//     if (myDonations.length === 0) {
-//         table.innerHTML = `<tr><td colspan="5">No donation requests found!</td></tr>`;
-//         return;
-//     }
-//     myDonations.forEach((donation) => {
-//         let row = `
-//             <tr>
-//                 <td>${donation.donor}</td>
-//                 <td>${donation.category}</td>
-//                 <td>${donation.date}</td>
-//                 <td>
-//                     <span class="badge 
-//                         ${donation.status === "Pending" ? "bg-secondary" :
-//                           donation.status === "Accepted" ? "bg-success" :
-//                           "bg-danger"}">
-//                         ${donation.status}
-//                     </span>
-//                 </td>
-//                 <td>
-//                     ${donation.status === "Pending" ? `
-//                         <button class="btn btn-success btn-sm me-2"
-//                             onclick="updateStatus('${donation.donoremail}','${donation.date}','${donation.category}','Accepted')">
-//                             Accept
-//                         </button>
-//                         <button class="btn btn-danger btn-sm"
-//                             onclick="updateStatus('${donation.donoremail}','${donation.date}','${donation.category}','Rejected')">
-//                             Reject
-//                         </button>
-//                     ` : "—"}
-//                 </td>
-//             </tr>
-//         `;
-//         table.innerHTML += row;
-//     });
-// }
 
 function renderTable() {
     let user = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -139,7 +95,7 @@ function renderTable() {
     <td>
         <td>${donation.status==="Accepted"?donation.phone:"Hidden"}</td>
         ${donation.status === "Pending" ? `
-            <button class="btn btn-success btn-sm me-2"
+            <button class="btn btn-success btn-sm"
                 onclick="updateStatus(${donation.request_id}, 'Accepted')">
                 Accept
             </button>
@@ -156,32 +112,6 @@ function renderTable() {
     })
     .catch(err => console.log(err));
 }
-// function updateStatus(donoremail, date, category, status) {
-//     let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
-//     let donations = JSON.parse(localStorage.getItem("donations")) || [];
-
-//     donations.forEach(d => {
-//         if (
-//             d.donoremail === donoremail &&
-//             d.date === date &&
-//             d.category === category &&
-//             d.ngoName === storedUser.name
-//         ) {
-//             d.status = status;
-
-//             if (status === "Accepted") {
-//                 d.ngoContactName = storedUser.name;
-//                 d.ngoContactEmail = storedUser.email;
-//                 d.ngoContactPhone = storedUser.phone; 
-//             }
-//         }
-//     });
-
-//     localStorage.setItem("donations", JSON.stringify(donations));
-
-//     renderTable();
-// }
-
 
 function updateStatus(id, status){
     fetch(`http://localhost:5000/api/donation/${id}`, {

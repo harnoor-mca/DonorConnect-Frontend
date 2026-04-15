@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded",function(){
 let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
 if(!storedUser || storedUser.role !== "donor"){
     window.location.href = "login.html";
-    
 }
 
 document.getElementById("welcometext").innerText =
@@ -209,18 +208,23 @@ return (ngoCity===selectedCity&& (selectedCategory==="general"||ngoCategory===se
 
         filtered.forEach(ngo => {
             rowHTML += `
-            <div class="col-md-4 mb-2">
+            <div class="col-md-6 mb-3">
                 <div class="dash-card h-100">
-                    <h4><b>${ngo.organisation_name}</b></h5>
+                   <div class="bg-dash"> <h4><b>${ngo.organisation_name}</b></h5>  </div>
                     <h6><b>City: </b> ${ngo.city}</h6>
                     <h6><b>Category: </b> ${ngo.category}</h6>
-                    <h6><b>Website:  </b><a href="${ngo.website || "N/A"}" target="_blank">Visit</a></h6>
+                     
+                 
+                    
     ${ngo.is_registered==1 ? `
-    <button class="my-btndo mt-auto"
+    <h6><b>Phone no. : </b> ${ngo.phone}</h6>
+    <button class="my-btndo mt-3"
         onclick="sendRequest(${ngo.ngo_id}, '${ngo.category}')">
         Send Request
     </button> ` : `
-    <a href="${ngo.website}" target="_blank" class="my-btndo1 btn-primary mt-auto">
+      <h6><b>Website:  </b></h6><h6><a href="${ngo.website || "N/A"}" target="_blank">${ngo.website}</a>
+                        </h6>
+    </h6><a href="${ngo.website}" target="_blank" class="my-btndo1 btn-primary mt-3">
         Contact via Website
     </a>
 `}

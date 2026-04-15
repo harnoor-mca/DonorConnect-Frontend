@@ -86,7 +86,7 @@ body {
 }
 
 .card:hover{
-    background-color: #009185;
+    background-color: #004b44;
     color: #ffffff;
     transform:translateY(-5px);
     transform:scale(1.05);
@@ -143,7 +143,7 @@ body {
     border-color: #00000000;
     font-size: x-large;
     cursor: pointer;
-    right: 20px;
+    right: 10px;
     position: absolute;
 }
 .my-btndo {
@@ -320,6 +320,7 @@ body {
     text-align: center;
     background:rgb(212, 255, 249);
     font-weight: bolder;
+    justify-content: center;
 }
 .dashboard select{
     font-weight: bold;
@@ -338,7 +339,7 @@ body {
 }
 .dash-card {
     background: rgb(255, 255, 255);
-    width: 300px;
+    width: 400px;
     margin: 15px;
     padding: 20px;
     border-radius: 6px;
@@ -356,10 +357,12 @@ body {
     text-align: center;
     
 }
+
 .dash-card h6 {
     color: #00122e;
     margin-bottom: 10px;
     font-weight: bolder;
+    
    
     
 }

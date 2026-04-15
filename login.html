@@ -36,50 +36,6 @@
     </div>
 </section>
 
-<!-- <script>
-document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value.trim();
-
-if(email==="admin@donorconnect.com" && password==="admin123"){
-    let adminUser={
-        name:"Admin",
-        email: email,
-        role:"Admin"
-    };
-    localStorage.setItem("loggedInUser",JSON.stringify(adminUser));
-    window.location.href="admin.html";
-    return;
-}
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
-
-let founduser = users.find(u =>
-    u.email.trim().toLowerCase() === email.toLowerCase() && u.password === password
-);
-let foundngo = ngos.find(n =>
-    n.email.trim().toLowerCase() === email.toLowerCase() && n.password === password
-);
-
-if(foundngo){
-    foundngo.role="ngo";
-    localStorage.setItem("loggedInUser", JSON.stringify(foundngo));
-    window.location.href = "ngodash.html";
-}
-else if(founduser){
-    founduser.role="Donor";
-    localStorage.setItem("loggedInUser", JSON.stringify(founduser));
-    window.location.href = "donordash.html";
-}
-
-else{
-    alert("Invalid credentials!");
-}
-    
-});
-</script> -->
 <script>
 document.getElementById("loginForm").addEventListener("submit", function(event) {
     event.preventDefault();
@@ -123,7 +79,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     })
     .catch(err => {
         console.log(err);
-        alert("Server error");
+        alert("Error code : 500 , Internal Server error");
     });
 
 });

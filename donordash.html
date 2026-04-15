@@ -31,6 +31,10 @@
                 <option>Amritsar</option>
                 <option>Delhi</option>
                 <option>Chandigarh</option>
+                <option>Mumbai</option>
+                <option>Bangalore</option>
+                <option>Chennai</option>
+                <option>Ahmedabad</option>
             </select>
         </div>
 
@@ -154,7 +158,7 @@ fetch(`http://localhost:5000/api/my-donations/${user.user.donor_id}`)
     table.innerHTML="";
     if(data.length === 0){
         table.innerHTML =
-            `<tr><td colspan="4">No donations found</td></tr>`;
+            `<tr><td colspan="5">No donations found</td></tr>`;
         return;
     }
     data.forEach((donation)=>{
@@ -316,7 +320,8 @@ function searchNGO(){
 
     const selectedCity = city.trim().toLowerCase();
     const selectedCategory = category.trim().toLowerCase();
-return (ngoCity===selectedCity&& (selectedCategory==="all"||ngoCategory===selectedCategory));
+    if(selectedCategory==="all"){ return ngoCity===selectedCity;}
+return (ngoCity===selectedCity&& (selectedCategory==="general"||ngoCategory===selectedCategory));
     console.log("CHECK:", ngoCity, selectedCity, ngoCategory, selectedCategory);
 
     
@@ -326,7 +331,7 @@ return (ngoCity===selectedCity&& (selectedCategory==="all"||ngoCategory===select
         resultDiv.innerHTML = "";
 
         if(filtered.length === 0){
-            resultDiv.innerHTML = "<p>No NGOs found</p>";
+            resultDiv.innerHTML = "<p>No NGOs found.</p>";
             return;
         }
 
@@ -336,13 +341,19 @@ return (ngoCity===selectedCity&& (selectedCategory==="all"||ngoCategory===select
             rowHTML += `
             <div class="col-md-4 mb-2">
                 <div class="dash-card h-100">
-                    <h5><b>${ngo.organisation_name}</b></h5>
-                    <h6><b>City:</b> ${ngo.city}</h6>
-                    <h6><b>Category:</b> ${ngo.category}</h6>
-                    <button class="my-btndo mt-auto"
-                        onclick="sendRequest(${ngo.ngo_id},'${ngo.category}')">
-                        Send Request
-                    </button>
+                    <h4><b>${ngo.organisation_name}</b></h5>
+                    <h6><b>City: </b> ${ngo.city}</h6>
+                    <h6><b>Category: </b> ${ngo.category}</h6>
+                    <h6><b>Website:  </b><a href="${ngo.website || "N/A"}" target="_blank">Visit</a></h6>
+    ${ngo.is_registered==1 ? `
+    <button class="my-btndo mt-auto"
+        onclick="sendRequest(${ngo.ngo_id}, '${ngo.category}')">
+        Send Request
+    </button> ` : `
+    <a href="${ngo.website}" target="_blank" class="my-btndo1 btn-primary mt-auto">
+        Contact via Website
+    </a>
+`}
                 </div>
             </div>
             `;

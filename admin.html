@@ -67,34 +67,41 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function loadUsers() {
+    
     let users = JSON.parse(localStorage.getItem("users")) || [];
     let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
-
+fetch("http://localhost:5000/api/donors")
+    .then(res => res.json())
+    .then(users=>{
     let donorTable = document.getElementById("donorTable");
     donorTable.innerHTML = "";
     users.forEach((u, index) => {
         donorTable.innerHTML += `
             <tr>
-                <td>${u.name}</td>
+                <td>${u.full_name}</td>
                 <td>${u.email}</td>
                 <td>${u.city}</td>
-                <td>${u.tel}</td>
+                
+                <td>${u.phone}</td>
                 <td>
                     <button class="btn btn-danger btn-sm" onclick="deleteDonor(${index})">Delete</button>
                 </td>
             </tr>
         `;
     });
-
+    });
+fetch("http://localhost:5000/api/ngos")
+    .then(res => res.json())
+    .then(ngos=>{
     let ngoTable = document.getElementById("ngoTable");
     ngoTable.innerHTML = "";
     ngos.forEach((n, index) => {
         ngoTable.innerHTML += `
             <tr>
-                <td>${n.name}</td>
+                <td>${n.organisation_name}</td>
                 <td>${n.email}</td>
                 <td>${n.city}</td>
-                <td>${n.tel}</td>
+                <td>${n.phone}</td>
                 <td>${n.category || ''}</td>
                 <td>
                     <button class="btn btn-danger btn-sm" onclick="deleteNgo(${index})">Delete</button>
@@ -102,6 +109,7 @@ function loadUsers() {
             </tr>
         `;
     });
+});
 }
 
 function deleteDonor(index) {
@@ -112,6 +120,7 @@ function deleteDonor(index) {
 }
 
 function deleteNgo(index) {
+    
     let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
     ngos.splice(index, 1);
     localStorage.setItem("ngos", JSON.stringify(ngos));

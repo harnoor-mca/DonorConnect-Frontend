@@ -38,6 +38,9 @@
     </table>
 
     <h2>NGOs</h2>
+    <div class="search-container">
+    <input type="text" id="ngosearch" class="form-control mb-3" placeholder="Search NGO by name..." onkeyup="filterNGO()"/>
+    </div>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -54,6 +57,7 @@
 </div>
 
 <script>
+    let allNGOs=[];
 document.addEventListener("DOMContentLoaded", function() {
     let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
@@ -84,18 +88,23 @@ fetch("http://localhost:5000/api/donors")
                 
                 <td>${u.phone}</td>
                 <td>
-                    <button class="btn btn-danger btn-sm" onclick="deleteDonor(${index})">Delete</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteDonor(${u.donor_id})">Delete</button>
                 </td>
             </tr>
         `;
     });
     });
+}
+    
 fetch("http://localhost:5000/api/ngos")
     .then(res => res.json())
     .then(ngos=>{
+        allNGOs=ngos;
+        displayNGOs(ngos); });
+    function displayNGOs(ngos){
     let ngoTable = document.getElementById("ngoTable");
     ngoTable.innerHTML = "";
-    ngos.forEach((n, index) => {
+    ngos.forEach((n) => {
         ngoTable.innerHTML += `
             <tr>
                 <td>${n.organisation_name}</td>
@@ -104,29 +113,54 @@ fetch("http://localhost:5000/api/ngos")
                 <td>${n.phone}</td>
                 <td>${n.category || ''}</td>
                 <td>
-                    <button class="btn btn-danger btn-sm" onclick="deleteNgo(${index})">Delete</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteNgo(${n.ngo_id})">Delete</button>
                 </td>
             </tr>
         `;
     });
-});
+
 }
 
-function deleteDonor(index) {
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    users.splice(index, 1);
-    localStorage.setItem("users", JSON.stringify(users));
-    loadUsers();
+function deleteDonor(id) {
+    if(!confirm("Are you sure?")) return;
+    fetch(`http://localhost:5000/api/admin/donor-del/${id}`,{
+        method:"DELETE"
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        alert(data.message);
+        loadUsers();
+    })
+    .catch(err=>console.log(err));
 }
+//     let users = JSON.parse(localStorage.getItem("users")) || [];
+//     users.splice(index, 1);
+//     localStorage.setItem("users", JSON.stringify(users));
+//     loadUsers();
+// }
 
-function deleteNgo(index) {
-    
-    let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
-    ngos.splice(index, 1);
-    localStorage.setItem("ngos", JSON.stringify(ngos));
-    loadUsers();
+function deleteNgo(id) {
+    if(!confirm("Are you sure?")) return;
+    fetch(`http://localhost:5000/api/admin/ngo-del/${id}`,{
+        method:"DELETE"
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        alert(data.message);
+        loadUsers();
+    })
+    .catch(err=>console.log(err));
 }
-
+//     let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
+//     ngos.splice(index, 1);
+//     localStorage.setItem("ngos", JSON.stringify(ngos));
+//     loadUsers();
+// }
+function filterNGO(){
+    let value=document.getElementById("ngosearch").value.toLowerCase();
+    let filtered=allNGOs.filter(n=>n.organisation_name.toLowerCase().includes(value));
+    displayNGOs(filtered);
+}
 function logout() {
     localStorage.removeItem("loggedInUser");
     window.location.href = "login.html";

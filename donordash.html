@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="loader" class="loader-overlay"><div class="spinner"></div></div>
 <header class="header">
     <h2><b>DonorConnect</b></h2></header>
 <nav class="navbar">
@@ -93,6 +94,7 @@ function logout() {
 
 
 function sendRequest(ngoId,category){
+    showLoader();
     console.log("Category sent:",category);
     let user = JSON.parse(localStorage.getItem("loggedInUser"));
 
@@ -117,10 +119,11 @@ function sendRequest(ngoId,category){
         alert(data.message);
         loadMyDonations();
     })
+    .finally(()=>hideLoader())
     .catch(err => console.log(err));
 }
 function loadMyDonations(){
-
+showLoader();
     let user = JSON.parse(localStorage.getItem("loggedInUser"));
     if(!user) return;
 
@@ -152,11 +155,12 @@ fetch(`http://localhost:5000/api/my-donations/${user.user.donor_id}`)
 table.innerHTML+=row;
     });
 })
+.finally(()=>hideLoader())
 .catch(err=>console.log(err));
 }
 
 function cancelDonation(request_id){
-    
+    showLoader();
     fetch(`http://localhost:5000/api/donation/${request_id}`,{
         method:"DELETE"
     })
@@ -165,6 +169,7 @@ function cancelDonation(request_id){
         alert(data.message);
         loadMyDonations();
     })
+    .finally(()=>hideLoader())
     .catch(err=>console.log(err));
 }
 
@@ -177,7 +182,7 @@ function searchNGO(){
         alert("Please select both city and category");
         return;
     }
-
+    showLoader();
     fetch("http://localhost:5000/api/ngos")
     .then(res => res.json())
     .then(ngos => {
@@ -236,7 +241,14 @@ return (ngoCity===selectedCity&& (selectedCategory==="general"||ngoCategory===se
         rowHTML += `</div>`;
         resultDiv.innerHTML = rowHTML;
     })
+    .finally(()=>hideLoader())
     .catch(err => console.log(err));
+}
+function showLoader(){
+    document.getElementById("loader").style.display="flex";
+}
+function hideLoader(){
+    document.getElementById("loader").style.display="none";
 }
 </script>
 </body>

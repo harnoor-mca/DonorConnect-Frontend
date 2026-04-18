@@ -59,9 +59,13 @@ label{
 input{
   color: #505050;
 }
+#ngoFields{
+  display:none;
+}
   </style>
 </head>
 <body class="reg text-white" > 
+  <div id="loader" class="loader-overlay"><div class="spinner"></div></div>
   <nav class="navbar  justify-content-center">
     <div class="nav-brand ">
      <h2><b>DonorConnect</b></h2></div>
@@ -87,7 +91,7 @@ input{
             <input type="text" name="city" class="form-control bg-light text-dark border-secondary" placeholder="City" required/>
           </div>
           <div class="mb-3">
-            <input type="tel" name="tel" class="form-control bg-light text-dark border-secondary" placeholder="Mobile number" required/>
+            <input type="tel" id="phone" name="tel" maxlength="10" pattern="\d{10}" class="form-control bg-light text-dark border-secondary" placeholder="Enter 10-digit Mobile number" required/>
           </div>
           <div class="mb-2">
             <label>Password</label>
@@ -99,16 +103,16 @@ input{
             <label>Who are you?</label>
           <select name="role" id="role" class="form-control border-secondary mb-3" required>
             <option value="">Select role</option>
-            <option value="Donor">Donor</option>
+            <option value="donor">Donor</option>
             <option value="ngo">NGO</option>
           </select>
         </div>
         <div id="ngoFields" class="mb-3">
           <label>Address</label>
-          <input type="text" name="address" id="addresses" placeholder="Address of NGO" class="form-control border-secondary bg-light text-dark mb-3 ">
+          <input type="text" name="address" id="address" placeholder="Address of NGO" class="form-control border-secondary bg-light text-dark mb-3 ">
           <label>Categories</label>
           <!-- <input type="text" name="category" id="categories" placeholder="Accepted Categories" class="form-control border-secondary bg-light text-dark "> -->
-        <select name="category" class="form-control" >
+        <select name="category" id="category" class="form-control" >
     <option value="">Select Category</option>
     <option value="General">General</option>
     <option value="Clothes">Clothes</option>
@@ -139,7 +143,16 @@ input{
 </section>
 
 <script>
+  function validatephone(phone){return /^\d{10}$/.test(phone);
+  
+  let tel=form.tel.value.trim();
+  if(!/^\d{10}$/.test(phone)){
+    alert("Phone number must be 10-digits");
+    return;
+  }
+}
 function registerUser(event, form){
+  showLoader();
   event.preventDefault();
   console.log("Register func called");
 
@@ -149,7 +162,8 @@ function registerUser(event, form){
   let city = form.city.value.trim();
   let role = form.role.value.trim();
   let tel=form.tel.value.trim();
-
+  let address=form.address.value.trim();
+  let category=document.getElementById("category").value;
   if(role === ""){
     alert("Please select a role");
     return;
@@ -172,8 +186,11 @@ if(existingUser || existingNgo){
     password: password,
     role: role,
     city: city,
-    tel: tel
+    phone: tel,
+    address,
+    category
   };
+  
 fetch(`http://localhost:5000/api/register`,{
   method:"POST",headers:{"Content-type":"application/json"},
   body:JSON.stringify({
@@ -183,7 +200,8 @@ fetch(`http://localhost:5000/api/register`,{
     role: role,
     city: city,
     phone: tel,
-    
+    address,
+    category
   })
 })
 .then(res=>res.json())
@@ -191,12 +209,15 @@ fetch(`http://localhost:5000/api/register`,{
   alert(data.message || data);
   window.location.href="login.html";
 })
+.finally(()=>hideLoader())
 .catch(err=>{
   console.log(err);
   alert("Error registering user");
 });
-  if(role === "ngo"){
-    user.categories = [];  
+  if(role === "ngo" && category===""){
+    alert("Please select category");
+    return;
+    user.category = [];  
    
   } 
   else {
@@ -204,19 +225,40 @@ fetch(`http://localhost:5000/api/register`,{
   }
   
  }
+const roleSelect = document.getElementById("role");
+const ngoFields = document.getElementById("ngoFields");
 
-const roleSelect= document.getElementById("role");
-const ngoFields=document.getElementById("ngoFields");
-roleSelect.addEventListener("change",function(){
-  if (this.value==="ngo"){
-    ngoFields.style.display="block";
+function toggleFields() {
+  if (roleSelect.value === "ngo") {
+    ngoFields.style.display = "block";
+  } else {
+    ngoFields.style.display = "none";
+  }
+}
+
+// Run on change
+roleSelect.addEventListener("change", toggleFields);
+
+// Run on page load
+document.addEventListener("DOMContentLoaded", toggleFields);
+// const roleSelect= document.getElementById("role");
+// const ngoFields=document.getElementById("ngoFields");
+// roleSelect.addEventListener("change",function(){
+//   if (this.value==="ngo"){
+//     ngoFields.style.display="block";
     
     
-  }
-  else{
-    ngoFields.style.display="none";
-  }
-});
+//   }
+//   else{
+//     ngoFields.style.display="none";
+//   }
+// });
+function showLoader(){
+    document.getElementById("loader").style.display="flex";
+}
+function hideLoader(){
+    document.getElementById("loader").style.display="none";
+}
 </script>
 </body>
 </html>

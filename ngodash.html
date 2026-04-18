@@ -15,6 +15,7 @@
     </style>
 </head>
 <body>
+    <div id="loader" class="loader-overlay"><div class="spinner"></div></div>
 
 <nav class="navbar navbar-dark bg-dark px-4">
     <span class="navbar-brand">DonorConnect - NGO Panel</span>
@@ -64,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function renderTable() {
+    showLoader();
     let user = JSON.parse(localStorage.getItem("loggedInUser"));
 
     fetch(`http://localhost:5000/api/ngo-requests/${user.user.ngo_id}`)
@@ -92,9 +94,7 @@ function renderTable() {
             ${donation.status}
         </span>
     </td>
-    <td>
-        <td>${donation.status==="Accepted"?donation.phone:"Hidden"}</td>
-        ${donation.status === "Pending" ? `
+        <td>${donation.status === "Pending" ? `
             <button class="btn btn-success btn-sm"
                 onclick="updateStatus(${donation.request_id}, 'Accepted')">
                 Accept
@@ -105,15 +105,18 @@ function renderTable() {
             </button>
         ` : ""}
     </td>
+    <td>${donation.status==="Accepted"?donation.phone:"Hidden"}</td>
 </tr>
 `;
             table.innerHTML += row;
         });
     })
+    .finally(()=>hideLoader())
     .catch(err => console.log(err));
 }
 
 function updateStatus(id, status){
+    showLoader();
     fetch(`http://localhost:5000/api/donation/${id}`, {
         method: "PUT",
         headers: {
@@ -126,11 +129,18 @@ function updateStatus(id, status){
         alert(data.message);
         renderTable();
     })
+    .finally(()=>hideLoader())
     .catch(err => console.log(err));
 }
 function logout() {
     localStorage.removeItem("loggedInUser");
     window.location.href = "login.html";
+}
+function showLoader(){
+    document.getElementById("loader").style.display="flex";
+}
+function hideLoader(){
+    document.getElementById("loader").style.display="none";
 }
 </script>
 

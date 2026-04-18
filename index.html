@@ -20,8 +20,8 @@
         <a href="index.html">Home</a> &nbsp; 
         <a href="login.html">Login</a> &nbsp;
         <a href="register.html">Register</a> &nbsp;
-         <a href="index.html">Contact</a> &nbsp;
-         <button id="aboutBtn" class="my-btnab justify-content-end "><i class="bi bi-info-circle"></i></i></button>
+         <!-- <a href="#" id="contactBtn">Contact</a> &nbsp; -->
+          <button id="aboutBtn" class="my-btnab justify-content-end "><i class="bi bi-info-circle"></i></i></button> 
 
 
     </nav>
@@ -105,9 +105,9 @@
     <p>Our vision is to create a <b>community of giving</b> where helping others is simple and accountable.</p>
   </div>
 </div>
-<!-- <div id="contactmodal" class="modal1">
-  <div class="modal-content1">
-    <span class="close">&times;</span>
+<!-- <div id="contactmodal" class="modal fade">
+  <div class="modal-content">
+    <span class="close-contact">&times;</span>
     <h2>Contact Us</h2>
     <ul>
       <li><a href="#">Phone</a></li>
@@ -115,7 +115,7 @@
       <li><a href="#">Phone</a></li>
     </ul>
   </div>
-</div> -->
+</div>  -->
 
 
     <footer class="footer">
@@ -140,24 +140,25 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-}
-// const modal1 = document.getElementById("contactmodal");
-// const cbtn = document.getElementById("contactbtn");
-// const span = document.querySelector(".close");
+ }
+// const contactmodal = document.getElementById("contactmodal");
+// const contactBtn = document.getElementById("contactBtn");
+// const closecontact = document.querySelector(".close-contact");
 
-// cbtn.onclick = function() {
-//   modal1.style.display = "block";
+//   console.log(contactBtn);
+// contactBtn.onclick = function(e) {
+// e.preventDefault();
+//   contactmodal.style.display = "block";
 // }
 
-// span.onclick = function() {
-//   modal1.style.display = "none";
+// closecontact.onclick = function() {
+//   contactmodal.style.display = "none";
 // }
 
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal1.style.display = "none";
-//   }
-// }
+// window.addEventListener("click",function(event) {
+//   if (event.target == contactmodal) {
+//     contactmodal.style.display = "none";}});
+  
 </script>
 </body>
 </html>

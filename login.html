@@ -9,7 +9,7 @@
   
 </head>
 <body>
-
+<div id="loader" class="loader-overlay"><div class="spinner"></div></div>
 <nav class="navbar1 d-flex flex-column align-items-center justify-content-center">
     <h2 class="head "><b>DonorConnect</b></h2>
     <div class="nav-links" id="navLinks">
@@ -53,7 +53,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         window.location.href="admin.html";
         return;
     }
-
+    showLoader();
     fetch("http://localhost:5000/api/login", {
         method: "POST",
         headers: {
@@ -77,12 +77,19 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         }
 
     })
+    .finally(()=>hideLoader())
     .catch(err => {
         console.log(err);
         alert("Error code : 500 , Internal Server error");
     });
 
 });
+function showLoader(){
+    document.getElementById("loader").style.display="flex";
+}
+function hideLoader(){
+    document.getElementById("loader").style.display="none";
+}
 </script>
 </body>
 </html>

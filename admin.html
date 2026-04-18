@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-
+<div id="loader" class="loader-overlay"><div class="spinner"></div></div>
 <nav class="navbar navbar-dark bg-dark px-4">
     <span class="navbar-brand">DonorConnect - Admin Panel</span>
     <button class="btn btn-outline-warning" onclick="logout()">Logout</button>
@@ -59,6 +59,7 @@
 <script>
     let allNGOs=[];
 document.addEventListener("DOMContentLoaded", function() {
+    hideLoader();
     let storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
     if (!storedUser || storedUser.role !== "Admin") {
@@ -74,6 +75,7 @@ function loadUsers() {
     
     let users = JSON.parse(localStorage.getItem("users")) || [];
     let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
+    showLoader();
 fetch("http://localhost:5000/api/donors")
     .then(res => res.json())
     .then(users=>{
@@ -93,14 +95,16 @@ fetch("http://localhost:5000/api/donors")
             </tr>
         `;
     });
-    });
+    })
+    .finally(()=>{hideLoader();});
 }
-    
+    showLoader();
 fetch("http://localhost:5000/api/ngos")
     .then(res => res.json())
     .then(ngos=>{
         allNGOs=ngos;
-        displayNGOs(ngos); });
+        displayNGOs(ngos); })
+    .finally(()=>{hideLoader();});
     function displayNGOs(ngos){
     let ngoTable = document.getElementById("ngoTable");
     ngoTable.innerHTML = "";
@@ -123,6 +127,7 @@ fetch("http://localhost:5000/api/ngos")
 
 function deleteDonor(id) {
     if(!confirm("Are you sure?")) return;
+    showLoader();
     fetch(`http://localhost:5000/api/admin/donor-del/${id}`,{
         method:"DELETE"
     })
@@ -131,6 +136,7 @@ function deleteDonor(id) {
         alert(data.message);
         loadUsers();
     })
+    .finally(()=>{hideLoader();})
     .catch(err=>console.log(err));
 }
 //     let users = JSON.parse(localStorage.getItem("users")) || [];
@@ -141,6 +147,7 @@ function deleteDonor(id) {
 
 function deleteNgo(id) {
     if(!confirm("Are you sure?")) return;
+    showLoader();
     fetch(`http://localhost:5000/api/admin/ngo-del/${id}`,{
         method:"DELETE"
     })
@@ -149,6 +156,7 @@ function deleteNgo(id) {
         alert(data.message);
         loadUsers();
     })
+    .finally(()=>{hideLoader();})
     .catch(err=>console.log(err));
 }
 //     let ngos = JSON.parse(localStorage.getItem("ngos")) || [];
@@ -164,6 +172,12 @@ function filterNGO(){
 function logout() {
     localStorage.removeItem("loggedInUser");
     window.location.href = "login.html";
+}
+function showLoader(){
+    document.getElementById("loader").style.display="flex";
+}
+function hideLoader(){
+    document.getElementById("loader").style.display="none";
 }
 </script>
 

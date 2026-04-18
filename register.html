@@ -174,7 +174,7 @@ if(existingUser || existingNgo){
     city: city,
     tel: tel
   };
-fetch("http://localhost:5000/api/register",{
+fetch(`http://localhost:5000/api/register`,{
   method:"POST",headers:{"Content-type":"application/json"},
   body:JSON.stringify({
     name: name,

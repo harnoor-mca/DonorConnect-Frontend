@@ -224,12 +224,12 @@ return (ngoCity===selectedCity&& (selectedCategory==="general"||ngoCategory===se
                  
                     
     ${ngo.is_registered==1 ? `
-    <h6><b>Phone number. : </b> ${ngo.phone}</h6>
+    <h6><b>Phone number. : </b> <a href="tel:${ngo.phone}">${ngo.phone}</a></h6>
     <button class="my-btndo mt-3"
         onclick="sendRequest(${ngo.ngo_id}, '${ngo.category}')">
         Send Request
     </button> ` : `
-    <h6><b>Phone number: </b> ${ngo.contact_phone}</h6>
+    <h6><b>Phone number: </b> <a href="tel:${ngo.contact_phone}">${ngo.contact_phone}</a></h6>
       <h6><b>Website:  </b></h6><h6><a href="${ngo.website || "N/A"}" target="_blank">${ngo.website}</a>
                         </h6>
     </h6><a href="${ngo.website}" target="_blank" class="my-btndo1 btn-primary mt-3">

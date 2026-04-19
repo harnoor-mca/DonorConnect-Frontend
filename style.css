@@ -191,7 +191,6 @@ body {
 .footer {
     background-color: #003133;
     color: white;
-    font-style: italic;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -329,10 +328,12 @@ body {
 .dash-card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 30px;
     font-weight: bold;
+    
 }
+
 .donorhead{
     font-size: x-large;
     font-weight: bolder;
@@ -355,6 +356,8 @@ body {
     margin-bottom: 10px;
     font-weight: bolder;
     text-align: center;
+ 
+    
     
 }
 
@@ -369,8 +372,8 @@ body {
 
 @media (max-width: 768px) {
     .dash-card {
-        width: 40%;
-        text-align: left;
+        margin-bottom: 15px;
+        width: 350px;
     }
 }
 /* Modal Styles */

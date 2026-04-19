@@ -88,7 +88,16 @@ input{
           </div>
           
           <div class="mb-3">
-            <input type="text" name="city" class="form-control bg-light text-dark border-secondary" placeholder="City" required/>
+             <select id="city" class="form-control">
+                <option value="">Select City</option>
+                <option>Amritsar</option>
+                <option>Delhi</option>
+                <option>Chandigarh</option>
+                <option>Mumbai</option>
+                <option>Bangalore</option>
+                <option>Chennai</option>
+                <option>Ahmedabad</option>
+            </select>
           </div>
           <div class="mb-3">
             <input type="tel" id="phone" name="tel" maxlength="10" pattern="\d{10}" class="form-control bg-light text-dark border-secondary" placeholder="Enter 10-digit Mobile number" required/>
@@ -159,7 +168,7 @@ function registerUser(event, form){
   let name = form.name.value.trim();
   let email = form.email.value.trim().toLowerCase();
   let password = form.password.value.trim();
-  let city = form.city.value.trim();
+  let city = document.getElementById("city").value;
   let role = form.role.value.trim();
   let tel=form.tel.value.trim();
   let address=form.address.value.trim();

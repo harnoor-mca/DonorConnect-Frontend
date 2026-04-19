@@ -47,7 +47,8 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>City</th>
-                <th>Phone</th>
+                <th>Phone (Registered)</th>
+                <th>Phone (Not-Registered)</th>
                 <th>Categories</th>
                 <th>Action</th>
             </tr>
@@ -91,6 +92,7 @@ function loadUsers() {
                 <td>${u.email}</td>
                 <td>${u.city}</td>
                 <td>${u.phone}</td>
+                
                 <td>
                     <button class="btn btn-danger btn-sm" onclick="deleteDonor(${u.donor_id})">Delete</button>
                 </td>
@@ -119,6 +121,7 @@ function loadUsers() {
                 <td>${n.email}</td>
                 <td>${n.city}</td>
                 <td>${n.phone}</td>
+                <td>${n.contact_phone}</td>
                 <td>${n.category || ''}</td>
                 <td>
                     <button class="btn btn-danger btn-sm" onclick="deleteNgo(${n.ngo_id})">Delete</button>

@@ -24,7 +24,7 @@
     <div id="welcometext" class="donorhead text-dark">
     
 </div>
-    <div class="container mt-4">
+    <div class="container mt-4 justify-content-center align-items-center">
     <div class="row g-2">
         <div class="col-md-6">
             <select id="cityFilter" class="form-control">
@@ -59,7 +59,7 @@
         </div>
     </div>
 </div>
-<div id="ngoResults" class="container mt-4"></div>
+<div id="ngoResults" class="container mt-4 "></div>
     <table class="table table-bordered table-striped mt-4">
     <thead class="table-dark">
         <tr>
@@ -209,24 +209,27 @@ return (ngoCity===selectedCity&& (selectedCategory==="general"||ngoCategory===se
             return;
         }
 
-        let rowHTML = `<div class="row">`;
+        let rowHTML = `<div class="row g-3">`;
 
         filtered.forEach(ngo => {
             rowHTML += `
             <div class="col-md-6 mb-3">
                 <div class="dash-card h-100">
-                   <div class="bg-dash"> <h4><b>${ngo.organisation_name}</b></h5>  </div>
+                   <div class="bg-dash"> <h4><b>${ngo.organisation_name}</b></h4>  </div>
                     <h6><b>City: </b> ${ngo.city}</h6>
                     <h6><b>Category: </b> ${ngo.category}</h6>
+                    <h6><b>Email-id: </b> <a href="mailto: ${ngo.email}">${ngo.email}</a></h6>
+                    
                      
                  
                     
     ${ngo.is_registered==1 ? `
-    <h6><b>Phone no. : </b> ${ngo.phone}</h6>
+    <h6><b>Phone number. : </b> ${ngo.phone}</h6>
     <button class="my-btndo mt-3"
         onclick="sendRequest(${ngo.ngo_id}, '${ngo.category}')">
         Send Request
     </button> ` : `
+    <h6><b>Phone number: </b> ${ngo.contact_phone}</h6>
       <h6><b>Website:  </b></h6><h6><a href="${ngo.website || "N/A"}" target="_blank">${ngo.website}</a>
                         </h6>
     </h6><a href="${ngo.website}" target="_blank" class="my-btndo1 btn-primary mt-3">

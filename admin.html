@@ -100,11 +100,6 @@ function loadUsers() {
         `;
     });
     
-
-  
-// fetch("http://localhost:5000/api/ngos")
-//     .then(res => res.json())
-//     .then(ngos=>{
         allNGOs=ngos;
         displayNGOs(ngos); })
         .catch(err=>console.log(err))

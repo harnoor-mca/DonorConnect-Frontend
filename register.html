@@ -120,8 +120,7 @@ input{
           <label>Address</label>
           <input type="text" name="address" id="address" placeholder="Address of NGO" class="form-control border-secondary bg-light text-dark mb-3 ">
           <label>Categories</label>
-          <!-- <input type="text" name="category" id="categories" placeholder="Accepted Categories" class="form-control border-secondary bg-light text-dark "> -->
-        <select name="category" id="category" class="form-control" >
+           <select name="category" id="category" class="form-control" >
     <option value="">Select Category</option>
     <option value="General">General</option>
     <option value="Clothes">Clothes</option>
@@ -136,7 +135,7 @@ input{
           <div class="form-check mb-4 justify-content-start align-items-start">
             <input class="form-check-input" type="checkbox" id="terms" required />
             <label class="form-check-label text-dark" for="terms">
-              I agree to the Terms & Conditions
+              I agree to share my information with the developer
             </label> 
           </div>
           
@@ -178,17 +177,6 @@ function registerUser(event, form){
     return;
   }
 
- 
-
-let users=JSON.parse(localStorage.getItem("users")) || [];
-let ngos=JSON.parse(localStorage.getItem("ngos")) || [];
-let existingUser=users.find(u=>u.email=== email);
-let existingNgo=ngos.find(n=>n.email===email);
-if(existingUser || existingNgo){
-  alert("Email already registered");
-  window.location.href="login.html";
-}
-
   let user = {
     name: name,
     email: email,
@@ -199,8 +187,19 @@ if(existingUser || existingNgo){
     address,
     category
   };
+
+  if(role === "ngo" && category===""){
+    alert("Please select category");
+    return;
+    user.category = [];  
+   
+  } 
+  else {
+    
+  }
   
 fetch(`http://localhost:5000/api/register`,{
+  
   method:"POST",headers:{"Content-type":"application/json"},
   body:JSON.stringify({
     name: name,
@@ -214,8 +213,15 @@ fetch(`http://localhost:5000/api/register`,{
   })
 })
 .then(res=>res.json())
+
 .then(data=>{
-  alert(data.message || data);
+  console.log("Response : ",data);
+  if(!data || !data.message){
+    alert("Email already registered");
+    hideLoader();
+    return;
+  }
+  alert(data.message);
   window.location.href="login.html";
 })
 .finally(()=>hideLoader())
@@ -223,15 +229,6 @@ fetch(`http://localhost:5000/api/register`,{
   console.log(err);
   alert("Error registering user");
 });
-  if(role === "ngo" && category===""){
-    alert("Please select category");
-    return;
-    user.category = [];  
-   
-  } 
-  else {
-    
-  }
   
  }
 const roleSelect = document.getElementById("role");
@@ -245,23 +242,10 @@ function toggleFields() {
   }
 }
 
-// Run on change
 roleSelect.addEventListener("change", toggleFields);
 
-// Run on page load
 document.addEventListener("DOMContentLoaded", toggleFields);
-// const roleSelect= document.getElementById("role");
-// const ngoFields=document.getElementById("ngoFields");
-// roleSelect.addEventListener("change",function(){
-//   if (this.value==="ngo"){
-//     ngoFields.style.display="block";
-    
-    
-//   }
-//   else{
-//     ngoFields.style.display="none";
-//   }
-// });
+
 function showLoader(){
     document.getElementById("loader").style.display="flex";
 }

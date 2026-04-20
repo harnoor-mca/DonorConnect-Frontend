@@ -20,7 +20,7 @@
         <a href="index.html">Home</a> &nbsp; 
         <a href="login.html">Login</a> &nbsp;
         <a href="register.html">Register</a> &nbsp;
-         <!-- <a href="#" id="contactBtn">Contact</a> &nbsp; -->
+         
           <button id="aboutBtn" class="my-btnab justify-content-end "><i class="bi bi-info-circle"></i></i></button> 
 
 
@@ -105,26 +105,32 @@
     <p>Our vision is to create a <b>community of giving</b> where helping others is simple and accountable.</p>
   </div>
 </div>
-<!-- <div id="contactmodal" class="modal fade">
-  <div class="modal-content">
-    <span class="close-contact">&times;</span>
-    <h2>Contact Us</h2>
-    <ul>
-      <li><a href="#">Phone</a></li>
-      <li><a href="#">Phone</a></li>
-      <li><a href="#">Phone</a></li>
-    </ul>
-  </div>
-</div>  -->
 
 
     <footer class="footer">
     <br>
         <i><p>  DonorConnect | Location-based In-Kind Donation Coordination System </p></i>
-        <p>Mail at: <a href="mailto: harnoor.kalra2005@gmail.com" class="text-warning text-decoration-none">Click here</a></p>
+        <p>For feedback and suggestions: <a href="mailto: harnoor.kalra2005@gmail.com?subject=Feedback&body=Write your message here" class="text-warning text-decoration-none">Click here</a></p>
 <br>
 
 </footer> 
+
+<div id="chatbot-btn"><i class="bi bi-chat-right-heart"></i></div>
+
+<div id="chatbot-container">
+    <div id="chat-header">
+        DonorConnect Help
+        <span id="close-chat">&times;</span>
+    </div>
+
+    <div id="chat-body"></div>
+
+    <div id="chat-questions">
+        <button  class="my-btn" onclick="sendQuestion('How to donate?')">How to donate?</button>
+        <button class="my-btn" onclick="sendQuestion('How NGO accepts request?')">How NGO accepts request?</button>
+        <button class="my-btn" onclick="sendQuestion('Is this platform free?')">Is this platform free?</button>
+    </div>
+</div>
 <script>
 const modal = document.getElementById("aboutModal");
 const btn = document.getElementById("aboutBtn");
@@ -143,24 +149,38 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
  }
-// const contactmodal = document.getElementById("contactmodal");
-// const contactBtn = document.getElementById("contactBtn");
-// const closecontact = document.querySelector(".close-contact");
 
-//   console.log(contactBtn);
-// contactBtn.onclick = function(e) {
-// e.preventDefault();
-//   contactmodal.style.display = "block";
-// }
+ const chatBtn = document.getElementById("chatbot-btn");
+const chatBox = document.getElementById("chatbot-container");
+const closeBtn = document.getElementById("close-chat");
+const chatBody = document.getElementById("chat-body");
 
-// closecontact.onclick = function() {
-//   contactmodal.style.display = "none";
-// }
+chatBtn.onclick = () => chatBox.style.display = "flex";
+closeBtn.onclick = () => chatBox.style.display = "none";
 
-// window.addEventListener("click",function(event) {
-//   if (event.target == contactmodal) {
-//     contactmodal.style.display = "none";}});
-  
+const answers = {
+    "How to donate?": "1. Register as Donor <br> 2.Login using your credentials <br> 3. Search for NGOs in your city by selecting category <br> 3a. If NGO is registered <br> -> Click on Send Request to submit <br> 3b. If NGO not registered <br> ->You will get Contact deatils of particular NGOs ",
+    "How NGO accepts request?": "NGOs review your request in their respective dashboards and click Accept from there.",
+    "Is this platform free?": "Yes, DonorConnect is completely free for donors and NGOs."
+};
+
+function sendQuestion(question) {
+
+    chatBody.innerHTML += `<div class="user-msg">${question}</div>`;
+
+    const typing = document.createElement("div");
+    typing.className = "bot-msg";
+    typing.innerHTML = "Typing <span>.</span><span>.</span><span>.</span>";
+    chatBody.appendChild(typing);
+
+    chatBody.scrollTop = chatBody.scrollHeight;
+    setTimeout(() => {
+        typing.remove();
+        chatBody.innerHTML += `<div class="bot-msg">${answers[question]}</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+    }, 1200);
+}
 </script>
 </body>
 </html>

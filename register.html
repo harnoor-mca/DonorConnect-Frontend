@@ -235,7 +235,8 @@ fetch(`https://donorconnect-backend.onrender.com/api/register`,{
 .then(data=>{
   console.log("Response : ",data);
   if(!data || !data.message){
-    alert("Email already registered");
+    alert("Email registered");
+    window.location.href="login.html";
     hideLoader();
     return;
   }

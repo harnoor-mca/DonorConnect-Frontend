@@ -7,12 +7,96 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <link rel="stylesheet" href="style.css">
-
+<style>
+#splash{
+position: fixed;
+inset:0;
+background:rgb(0, 30, 31);
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+}
+#splash-logo{
+    width: 20%;
+    animation: logoAnim 2s ease forwards;
+    
+}
+#splash-text{
+    color: antiquewhite;
+    font-size: 40px;
+    opacity: 0;
+    animation: textFlash 1s ease forwards;
+    animation-delay: 1.8s;
+    text-align: center;
+}
+@keyframes logoAnim {
+    0%{
+        transform:scale(0.3) rotate(0deg);
+        opacity: 0;
+    }
+    50%{
+        transform: scale(1.2) rotate(180deg);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(1) rotate(360deg);
+        
+    }
+}
+@keyframes textFlash {
+    0%{
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@media (max-width: 992px){
+    #splash-text{
+      font-size: 150%;
+    }
+    #splash-logo{
+        width: 40%;
+    }
+}
+.logo-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.left-logo, .right-logo{
+    display: none;
+}
+.center-logo{
+    display: none;
+}
+@media (max-width:768px) {
+    .logo-container{
+        justify-content: center;
+    }
+    .left-logo,.right-logo{
+        display: none;
+    }
+    .center-logo{
+        display: block;
+        width: 20%;
+    }
+    
+}
+</style>
 </head>
 <body>
-
+<div id="splash"><img src="Images/Logo.png" id="splash-logo"><h1 id="splash-text">DonorConnect</h1>  <h3 id="splash-text">A community-based Donation Platform</h3></div>
+<div class="logo-container"><img src="Images/Logo.png" class="logo left-logo" alt="logo"></div>
+<div class="logo-container"><img src="Images/Logo.png" class="logo right-logo" alt="logo"></div>
+<div class="logo-container"><img src="Images/Logo.png" class="logo center-logo" alt="logo"></div>
     <header class="header">
-      <img src="" alt="logo" width="80">  <h1>DonorConnect</h1>
+      <h1>DonorConnect</h1>
         <p>Connecting Donors with NGOs for In-Kind Donations</p>
     </header>
 
@@ -112,10 +196,10 @@
         <i><p>  DonorConnect | Location-based In-Kind Donation Coordination System </p></i>
         <p>For feedback and suggestions: <a href="mailto: harnoor.kalra2005@gmail.com?subject=Feedback&body=Write your message here" class="text-warning text-decoration-none">Click here</a></p>
 <br>
-
 </footer> 
 
-<div id="chatbot-btn"><i class="bi bi-chat-right-heart"></i></div>
+<div id="chatbot-btn">
+    <img src="Images/Logo.png" style="width: 20%;"></div>
 
 <div id="chatbot-container">
     <div id="chat-header">
@@ -181,6 +265,11 @@ function sendQuestion(question) {
 
     }, 1200);
 }
+window.addEventListener("load",function(){
+    setTimeout(()=>{
+        document.getElementById("splash").style.display="none";
+    },3000);
+});
 </script>
 </body>
 </html>

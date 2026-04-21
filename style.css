@@ -267,7 +267,7 @@ body {
 }
 .navbar1 h2{
     font-family: 'Times New Roman', Times, serif;
-    text-decoration: underline;
+    text-decoration:none;
     color: #ffffff;
 }
 .login-box {
@@ -489,18 +489,33 @@ body {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #0a7a00;
+    width: 60px;
+    height: 60px;
+    background: #00141b;
     color: rgb(255, 255, 255);
-    font-size: 28px;
-    padding: 10px 20px;
-    border-radius: 60%;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
     cursor: pointer;
+    box-shadow: 0 0 20px rgb(255, 253, 253);
 }
-#chatbot-btn:hover{
-    box-shadow: 0 0 20px rgb(238, 255, 7);
-    background-color: #000;
-    color: white;
-    
+#chatbot-btn img{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    display: block;
+    transform: scale(3);
+}
+#chatbot-btn:hover {
+    box-shadow: 0 0 20px rgb(0, 0, 0);
+    background-color: #eeffff;
+    border: 2px solid black;
+}
+#chatbot-btn:hover img{
+    filter: brightness(0);
 }
 #chatbot-container {
     position: fixed;

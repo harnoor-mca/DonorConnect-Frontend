@@ -17,10 +17,14 @@
     .w-30{
         width: 30%;
     }
-    .navbar{
+    .navbar1,.navbar1 a{
       background-color:  #007070;
       color: rgb(255, 255, 255);
-      text-decoration: underline;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .navbar1 a:hover{
+      color: #00ffd5;
     }
     .card1 {
     
@@ -54,7 +58,7 @@ label{
 }
 .form-control{
   font-weight: bold;
-  
+
 }
 input{
   color: #505050;
@@ -66,11 +70,25 @@ input{
 </head>
 <body class="reg text-white" > 
   <div id="loader" class="loader-overlay"><div class="spinner"></div></div>
-  <nav class="navbar  justify-content-center">
+  <!-- <nav class="navbar  justify-content-center">
     <div class="nav-brand ">
-     <h2><b>DonorConnect</b></h2></div>
-  </nav>
+     <h2><b>DonorConnect</b></h2>
+    </div>
+     
+  </nav> -->
+  <nav class="navbar1 d-flex flex-column align-items-center justify-content-center">
+    <br>
+    <h2 class="head"><b>DonorConnect</b></h2>
+    <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>  &nbsp;
+        <a href="login.html">Login</a> &nbsp;
+        <a href="register.html">Register</a>
+    </div>
+    <br>
+</nav>
+
   <section id="register">
+    <br>
   <div class=" container d-flex align-items-center justify-content-center dvh-100">
     
     <div class="row card1" style="max-width:700%; width: 70%; ">
@@ -88,8 +106,8 @@ input{
           </div>
           
           <div class="mb-3">
-             <select id="city" class="form-control">
-                <option value="">Select City</option>
+             <select id="city" class="form-control border-secondary">
+                <option value="" class="">Select City</option>
                 <option>Amritsar</option>
                 <option>Delhi</option>
                 <option>Chandigarh</option>
@@ -120,7 +138,7 @@ input{
           <label>Address</label>
           <input type="text" name="address" id="address" placeholder="Address of NGO" class="form-control border-secondary bg-light text-dark mb-3 ">
           <label>Categories</label>
-           <select name="category" id="category" class="form-control" >
+           <select name="category" id="category" class="form-control border-secondary" >
     <option value="">Select Category</option>
     <option value="General">General</option>
     <option value="Clothes">Clothes</option>

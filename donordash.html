@@ -98,7 +98,7 @@ function sendRequest(ngoId,category){
     console.log("Category sent:",category);
     let user = JSON.parse(localStorage.getItem("loggedInUser"));
 
-    fetch("http://localhost:5000/api/donate", {
+    fetch("https://donorconnect-backend.onrender.com/api/donate", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -127,7 +127,7 @@ showLoader();
     let user = JSON.parse(localStorage.getItem("loggedInUser"));
     if(!user) return;
 
-fetch(`http://localhost:5000/api/my-donations/${user.user.donor_id}`)
+fetch(`https://donorconnect-backend.onrender.com/api/my-donations/${user.user.donor_id}`)
 .then(res=>res.json())
 .then(data=>{
     let table=document.getElementById("myDonationTable");
@@ -161,7 +161,7 @@ table.innerHTML+=row;
 
 function cancelDonation(request_id){
     showLoader();
-    fetch(`http://localhost:5000/api/donation/${request_id}`,{
+    fetch(`https://donorconnect-backend.onrender.com/api/donation/${request_id}`,{
         method:"DELETE"
     })
     .then(res=>res.json())
@@ -183,7 +183,7 @@ function searchNGO(){
         return;
     }
     showLoader();
-    fetch("http://localhost:5000/api/ngos")
+    fetch("https://donorconnect-backend.onrender.com/api/ngos")
     .then(res => res.json())
     .then(ngos => {
         console.log("NGO data:",ngos);

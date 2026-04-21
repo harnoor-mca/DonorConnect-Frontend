@@ -68,7 +68,7 @@ function renderTable() {
     showLoader();
     let user = JSON.parse(localStorage.getItem("loggedInUser"));
 
-    fetch(`http://localhost:5000/api/ngo-requests/${user.user.ngo_id}`)
+    fetch(`https://donorconnect-backend.onrender.com/api/ngo-requests/${user.user.ngo_id}`)
     .then(res => res.json())
     .then(data => {
         let table = document.getElementById("donationTable");
@@ -117,7 +117,7 @@ function renderTable() {
 
 function updateStatus(id, status){
     showLoader();
-    fetch(`http://localhost:5000/api/donation/${id}`, {
+    fetch(`https://donorconnect-backend.onrender.com/api/donation/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"

@@ -216,7 +216,7 @@ function registerUser(event, form){
     
   }
   
-fetch(`http://localhost:5000/api/register`,{
+fetch(`https://donorconnect-backend.onrender.com/api/register`,{
   
   method:"POST",headers:{"Content-type":"application/json"},
   body:JSON.stringify({

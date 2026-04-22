@@ -24,6 +24,7 @@
 
 <div class="table-container">
     <h2>Donors</h2>
+    <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -36,11 +37,13 @@
         </thead>
         <tbody id="donorTable"></tbody>
     </table>
+    </div>
 
     <h2>NGOs</h2>
     <div class="search-container">
     <input type="text" id="ngosearch" class="form-control mb-3" placeholder="Search NGO by name..." onkeyup="filterNGO()"/>
     </div>
+    <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -55,6 +58,7 @@
         </thead>
         <tbody id="ngoTable"></tbody>
     </table>
+    </div>
 </div>
 
 <script>

@@ -32,7 +32,6 @@
                 <option>Amritsar</option>
                 <option>Delhi</option>
                 <option>Chandigarh</option>
-                <option>Mumbai</option>
                 <option>Bangalore</option>
                 <option>Chennai</option>
                 <option>Ahmedabad</option>
@@ -60,7 +59,7 @@
     </div>
 </div>
 <div id="ngoResults" class="container mt-4 "></div>
-    <table class="table table-bordered table-striped mt-4">
+    <div class="table-responsive"><table class="table table-bordered table-striped mt-4">
     <thead class="table-dark">
         <tr>
             <th>NGO</th>
@@ -71,7 +70,7 @@
         </tr>
     </thead>
     <tbody id="myDonationTable"></tbody>
-</table>
+</table></div>
 
 
 </section>
@@ -213,7 +212,7 @@ return (ngoCity===selectedCity&& (selectedCategory==="general"||ngoCategory===se
 
         filtered.forEach(ngo => {
             rowHTML += `
-            <div class="col-md-6 mb-3">
+            <div class="dash-container col-md-6 mb-3">
                 <div class="dash-card h-100">
                    <div class="bg-dash"> <h4><b>${ngo.organisation_name}</b></h4>  </div>
                     <h6><b>City: </b> ${ngo.city}</h6>

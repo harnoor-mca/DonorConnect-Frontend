@@ -21,13 +21,13 @@
     <span class="navbar-brand">DonorConnect - Admin Panel</span>
     <button class="btn btn-outline-warning" onclick="logout()">Logout</button>
 </nav>
-<button onclick="deleteSelected()">Delete Selected</button>
 <div class="table-container">
     <h2>Donors</h2>
     <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
+                <th>Select Multiple</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>City</th>
@@ -37,6 +37,8 @@
         </thead>
         <tbody id="donorTable"></tbody>
     </table>
+    <button onclick="deleteSelected()" class="btn btn-danger align-items-center justify-content-center">Delete Selected</button>
+
     </div>
 
     <h2>NGOs</h2>
@@ -47,6 +49,7 @@
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
+                <th>Select Multiple</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>City</th>
@@ -58,6 +61,8 @@
         </thead>
         <tbody id="ngoTable"></tbody>
     </table>
+    <button onclick="deleteSelected()" class="btn btn-danger align-items-center justify-content-center">Delete Selected</button>
+
     </div>
 </div>
 

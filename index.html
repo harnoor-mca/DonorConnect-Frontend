@@ -201,10 +201,10 @@ z-index: 9999;
 <div id="chatbot-btn">
     <img src="Images/Logo.png" style="width: 20%;"></div>
 
-<div id="chatbot-container">
+<div id="chatbot-container" class="chat-box">
     <div id="chat-header">
         DonorConnect Help
-        <span id="close-chat">&times;</span>
+        <span id="close">&times;</span>
     </div>
 
     <div id="chat-body"></div>
@@ -236,14 +236,14 @@ window.onclick = function(event) {
 
  const chatBtn = document.getElementById("chatbot-btn");
 const chatBox = document.getElementById("chatbot-container");
-const closeBtn = document.getElementById("close-chat");
+const closeBtn = document.getElementById("close");
 const chatBody = document.getElementById("chat-body");
 
 chatBtn.onclick = () => chatBox.style.display = "flex";
 closeBtn.onclick = () => chatBox.style.display = "none";
 
 const answers = {
-    "How to donate?": "1. Register as Donor <br> 2.Login using your credentials <br> 3. Search for NGOs in your city by selecting category <br> 3a. If NGO is registered <br> -> Click on Send Request to submit <br> 3b. If NGO not registered <br> ->You will get Contact deatils of particular NGOs ",
+    "How to donate?": "1. Register as Donor <br> 2.Login using your credentials <br> 3. Search for NGOs in your city by selecting category <br> 3a. If NGO is registered <br> -> Click on Send Request to submit <br> 3b. If NGO not registered <br> ->You will get Contact details of particular NGOs ",
     "How NGO accepts request?": "NGOs review your request in their respective dashboards and click Accept from there.",
     "Is this platform free?": "Yes, DonorConnect is completely free for donors and NGOs."
 };

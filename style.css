@@ -533,7 +533,7 @@ table{
     width: 350px;
     height: 400px;
     background: white;
-    border-radius: 20px;
+    
     display: none;
     flex-direction: column;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);

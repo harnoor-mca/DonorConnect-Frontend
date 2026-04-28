@@ -234,13 +234,19 @@ fetch(`https://donorconnect-backend.onrender.com/api/register`,{
 
 .then(data=>{
   console.log("Response : ",data);
-  if(!data || !data.message){
-    alert("Email registered");
-    window.location.href="login.html";
+  if(typeof data==="string"){
+    alert("Registered successfully!!");
     hideLoader();
-    return;
+    window.location.href="login.html";
+    
   }
-  alert(data.message);
+  else{
+    alert("Email or phone registered already");
+    return;
+    
+  }
+  
+
   window.location.href="login.html";
 })
 .finally(()=>hideLoader())

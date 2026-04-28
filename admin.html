@@ -21,7 +21,7 @@
     <span class="navbar-brand">DonorConnect - Admin Panel</span>
     <button class="btn btn-outline-warning" onclick="logout()">Logout</button>
 </nav>
-
+<button onclick="deleteSelected()">Delete Selected</button>
 <div class="table-container">
     <h2>Donors</h2>
     <div class="table-responsive">
@@ -92,6 +92,7 @@ function loadUsers() {
     users.forEach((u, index) => {
         donorTable.innerHTML += `
             <tr>
+                <td><input type="checkbox" class="user-checkbox" value="${u.id}"</td>
                 <td>${u.full_name}</td>
                 <td>${u.email}</td>
                 <td>${u.city}</td>
@@ -116,6 +117,7 @@ function loadUsers() {
     ngos.forEach((n) => {
         ngoTable.innerHTML += `
             <tr>
+                <td><input type="checkbox" class="user-checkbox" value="${n.id}"</td>
                 <td>${n.organisation_name}</td>
                 <td>${n.email}</td>
                 <td>${n.city}</td>
@@ -160,7 +162,36 @@ function deleteNgo(id) {
     .finally(()=>hideLoader())
     .catch(err=>console.log(err));
 }
+function deleteSelected() {
+    const checkboxes = document.querySelectorAll(".user-checkbox:checked");
 
+    if (checkboxes.length === 0) {
+        alert("Select at least one user");
+        return;
+    }
+
+    const ids = [];
+    checkboxes.forEach(cb => ids.push(cb.value));
+
+    if (!confirm("Are you sure you want to delete selected users?")) return;
+
+    fetch("https://donorconnect-backend.onrender.com/api/admin/delete-multiple", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ ids })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        location.reload();
+    })
+    .catch(err => {
+        console.log(err);
+        alert("Error deleting users");
+    });
+}
 function filterNGO(){
     let value=document.getElementById("ngosearch").value.toLowerCase();
     let filtered=allNGOs.filter(n=>n.organisation_name.toLowerCase().includes(value));

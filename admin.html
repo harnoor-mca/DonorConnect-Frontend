@@ -181,7 +181,7 @@ function deleteSelected() {
     if (!confirm("Are you sure you want to delete selected users?")) return;
 
     fetch("https://donorconnect-backend.onrender.com/api/admin/delete-multiple-donor", {
-        method: "POST",
+        method: "DELETE",
         headers: {
             "Content-Type": "application/json"
         },
@@ -197,7 +197,7 @@ function deleteSelected() {
         alert("Error deleting users");
     });
     fetch("https://donorconnect-backend.onrender.com/api/admin/delete-multiple-ngo", {
-        method: "POST",
+        method: "DELETE",
         headers: {
             "Content-Type": "application/json"
         },

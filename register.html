@@ -234,7 +234,7 @@ fetch(`https://donorconnect-backend.onrender.com/api/register`,{
 
 .then(data=>{
   console.log("Response : ",data);
-  if(data.message===" NGO registered" || data.message==="Donor registered"){
+  if(data.message==="NGO registered !" || data.message==="Donor registered !"){
     alert("Registered successfully!!");
     hideLoader();
     window.location.href="login.html";

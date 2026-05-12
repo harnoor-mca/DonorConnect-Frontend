@@ -234,7 +234,7 @@ fetch(`https://donorconnect-backend.onrender.com/api/register`,{
 
 .then(data=>{
   console.log("Response : ",data);
-  if(typeof data==="string"){
+  if(typeof data===""){
     alert("Registered successfully!!");
     hideLoader();
     window.location.href="login.html";

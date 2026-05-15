@@ -37,7 +37,7 @@
         </thead>
         <tbody id="donorTable"></tbody>
     </table>
-    <button onclick="deleteSelected()" class="btn btn-danger align-items-center justify-content-center">Delete Selected</button>
+    <button onclick="deleteSelected('donor')" class="btn btn-danger align-items-center justify-content-center">Delete Selected donors</button>
 
     </div>
 
@@ -61,7 +61,7 @@
         </thead>
         <tbody id="ngoTable"></tbody>
     </table>
-    <button onclick="deleteSelected()" class="btn btn-danger align-items-center justify-content-center">Delete Selected</button>
+    <button onclick="deleteSelected('ngo')" class="btn btn-danger align-items-center justify-content-center">Delete Selected NGOs</button>
 
     </div>
 </div>
@@ -97,7 +97,7 @@ function loadUsers() {
     users.forEach((u, index) => {
         donorTable.innerHTML += `
             <tr>
-                <td><input type="checkbox" class="user-checkbox" value="${u.id}"</td>
+                <td><input type="checkbox" name="selectuser" class="user-checkbox" value="${u.id}"</td>
                 <td>${u.full_name}</td>
                 <td>${u.email}</td>
                 <td>${u.city}</td>
@@ -122,7 +122,7 @@ function loadUsers() {
     ngos.forEach((n) => {
         ngoTable.innerHTML += `
             <tr>
-                <td><input type="checkbox" class="user-checkbox" value="${n.id}"</td>
+                <td><input type="checkbox" class="user-checkbox" name="selectuser" value="${n.id}"</td>
                 <td>${n.organisation_name}</td>
                 <td>${n.email}</td>
                 <td>${n.city}</td>
@@ -167,8 +167,8 @@ function deleteNgo(id) {
     .finally(()=>hideLoader())
     .catch(err=>console.log(err));
 }
-function deleteSelected() {
-    const checkboxes = document.querySelectorAll(".user-checkbox:checked");
+function deleteSelected(type) {
+    const checkboxes = document.querySelectorAll('input[name="selectuser"]:checked');
 
     if (checkboxes.length === 0) {
         alert("Select at least one user");
@@ -178,9 +178,17 @@ function deleteSelected() {
     const ids = [];
     checkboxes.forEach(cb => ids.push(cb.value));
 
-    if (!confirm("Are you sure you want to delete selected users?")) return;
+    if (!confirm("Are you sure you want to delete selected users?")) return; {}
+    let url="";
+    if(type==="donor"){
 
-    fetch("https://donorconnect-backend.onrender.com/api/admin/delete-multiple-donor", {
+    url="https://donorconnect-backend.onrender.com/api/admin/delete-multiple-donor"; }
+    else{
+        url="https://donorconnect-backend.onrender.com/api/admin/delete-multiple-ngo";
+    }
+    console.log(ids);
+    console.log(type);
+    fetch(url,{
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
@@ -196,22 +204,7 @@ function deleteSelected() {
         console.log(err);
         alert("Error deleting users");
     });
-    fetch("https://donorconnect-backend.onrender.com/api/admin/delete-multiple-ngo", {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ ids })
-    })
-    .then(res => res.json())
-    .then(data => {
-        alert(data.message);
-        location.reload();
-    })
-    .catch(err => {
-        console.log(err);
-        alert("Error deleting users");
-    });
+    
 }
 function filterNGO(){
     let value=document.getElementById("ngosearch").value.toLowerCase();
